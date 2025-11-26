@@ -5,13 +5,13 @@ from contextlib import asynccontextmanager
 from starlette.middleware.cors import CORSMiddleware
 
 from database import database, DATABASE_URL
-from StarRentalMng.routes.department_routes_example import router as department_router
+from routes.department_routes_example import router as department_router
 from starlette_admin.contrib.sqla import Admin
-from StarRentalMng.views.department_view_example import DepartmentView
+from views.department_view_example import DepartmentView
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from StarRentalMng.routes.course_routes_example import router as course_router
-from StarRentalMng.views.course_view_example import CourseView
+from routes.course_routes_example import router as course_router
+from views.course_view_example import CourseView
 
 
 @asynccontextmanager

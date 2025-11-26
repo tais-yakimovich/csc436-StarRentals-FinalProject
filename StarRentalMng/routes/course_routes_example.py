@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from database import database
-from StarRentalMng.schemas.course_example import Course
-from StarRentalMng.crud.course_crud_example import (get_courses, get_course, create_course,
+from schemas.course_example import Course
+from crud.course_crud_example import (get_courses, get_course, create_course,
                               delete_course, update_course)
 
 router = APIRouter(prefix="/api/courses", tags=["Courses"])

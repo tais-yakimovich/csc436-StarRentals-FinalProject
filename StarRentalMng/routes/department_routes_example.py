@@ -1,6 +1,6 @@
 from database import database
-from StarRentalMng.schemas.department_example import Department
-from StarRentalMng.crud.department_crud_example import (get_departments, get_department, create_department,
+from schemas.department_example import Department
+from crud.department_crud_example import (get_departments, get_department, create_department,
                                   delete_department, update_department)
 from fastapi import APIRouter, HTTPException
 

@@ -4,7 +4,7 @@ from starlette.requests import Request
 from starlette_admin import BaseModelView  # ✅ No RequestAction import needed
 from starlette_admin.exceptions import FormValidationError
 from starlette_admin.fields import IntegerField, StringField
-from StarRentalMng.crud.course_crud_example import *
+from crud.course_crud_example import *
 from database import database
 
 logging.basicConfig(level=logging.DEBUG)

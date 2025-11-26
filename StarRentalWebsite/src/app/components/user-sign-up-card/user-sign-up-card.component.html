@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="login-box">
+        <h1>Star Rentals</h1>
+        <p-floatLabel class="float-label" variant="on">
+            <p-iconfield>
+                <p-inputicon class="pi pi-user" />
+                <input pInputText id="first_name" [(ngModel)]="first_name" />
+                <label for="first_name">First Name</label>
+            </p-iconfield>
+        </p-floatLabel>
+        <p-floatLabel class="float-label" variant="on">
+            <p-iconfield>
+                <p-inputicon class="pi pi-user" />
+                <input pInputText id="last_name" [(ngModel)]="last_name" />
+                <label for="last_name">Last Name</label>
+            </p-iconfield>
+        </p-floatLabel>
+        <p-floatLabel class="float-label" variant="on">
+            <p-iconfield>
+                <p-inputicon class="pi pi-envelope" />
+                <input pInputText id="email" [(ngModel)]="email" />
+                <label for="username">Email</label>
+            </p-iconfield>
+        </p-floatLabel>
+        <p-floatLabel class="float-label" variant="on">
+            <p-iconfield>
+                <p-inputicon class="pi pi-lock" />
+                <p-password [feedback]="false" [(ngModel)]="password" inputId="password" [toggleMask]="true"></p-password>
+                <label for="password">Password</label>
+            </p-iconfield>
+        </p-floatLabel>
+        <p-floatLabel class="float-label" variant="on">
+            <p-iconfield>
+                <p-inputicon class="pi pi-lock" />
+                <p-password [feedback]="false" [(ngModel)]="confirm_password" inputId="confirm_password" [toggleMask]="true"></p-password>
+                <label for="password">Confirm Password</label>
+            </p-iconfield>
+        </p-floatLabel>
+        <p-button label="Next" variant="outlined"></p-button>
+    </div>
+</div>

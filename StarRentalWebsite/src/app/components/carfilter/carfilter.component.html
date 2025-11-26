@@ -1,0 +1,52 @@
+<p-accordion value="0">
+    <p-accordion-panel value="0">
+        <p-accordion-header>Car Type</p-accordion-header>
+        <p-accordion-content>
+                <div *ngFor="let type of carTypes" class="checkbox-item">
+                    <p-checkbox 
+                        [(ngModel)]="selectedCarTypes" 
+                        [value]="type.value">
+                    </p-checkbox>
+                    <label class="ml-2">{{ type.label }}</label>
+                </div>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="1">
+        <p-accordion-header>Price Range</p-accordion-header>
+        <p-accordion-content>
+            <p class="m-0">
+                <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4"/>
+                <p-slider [(ngModel)]="value" class="w-full" />
+            </p>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="2">
+        <p-accordion-header>Location</p-accordion-header>
+        <p-accordion-content>
+            <div *ngFor="let type of locations" class="checkbox-item">
+                    <p-checkbox 
+                        [(ngModel)]="selectedLocation" 
+                        [value]="type.value">
+                    </p-checkbox>
+                    <label class="ml-2">{{ type.label }}</label>
+            </div>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="3">
+        <p-accordion-header>Transmission</p-accordion-header>
+        <p-accordion-content>
+            <div *ngFor="let type of transmissionTypes" class="checkbox-item">
+                    <p-checkbox 
+                        [(ngModel)]="selectedTransmission" 
+                        [value]="type.value">
+                    </p-checkbox>
+                    <label class="ml-2">{{ type.label }}</label>
+            </div>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+
+</p-accordion>

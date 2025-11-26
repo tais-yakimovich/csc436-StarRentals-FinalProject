@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="info bar">
+        <h2>Cars</h2>
+        <p>Total Cars: 20</p>
+    </div>
+    <p-accordion [multiple]="true">
+        @for (location of locations; track location.id) {
+            <p-accordion-panel [value]="location.id">
+                <p-accordion-header>Location {{ location.id }}</p-accordion-header>
+                <p-accordion-content>
+                    <p-table [value]="location.cars" [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>VIN</th>
+                                <th>License Plate</th>
+                                <th>Year</th>
+                                <th>Make</th>
+                                <th>Model</th>
+                                <th>Body Style</th>
+                                <th>Color</th>
+                                <th>Miles</th>
+                                <th>Rental Price</th>
+                                <th>Fuel Type</th>
+                                <th>Rental Status</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-car>
+                            <tr>
+                                <td>{{ car.vin }}</td>
+                                <td>{{ car.licensePlate }}</td>
+                                <td>{{ car.year }}</td>
+                                <td>{{ car.make }}</td>
+                                <td>{{ car.model }}</td>
+                                <td>{{ car.bodyStyle }}</td>
+                                <td>{{ car.color }}</td>
+                                <td>{{ car.miles }}</td>
+                                <td>{{ car.rentalPrice }}</td>
+                                <td>{{ car.fuelType }}</td>
+                                <td>{{ car.rentalStatus }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-accordion-content>
+            </p-accordion-panel>
+        }
+    </p-accordion>
+</div>

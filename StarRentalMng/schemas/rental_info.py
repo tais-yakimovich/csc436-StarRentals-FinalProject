@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
+from typing import Optional
 
 class RentalInfo(BaseModel):
     rental_id: int
@@ -11,4 +12,4 @@ class RentalInfo(BaseModel):
     user_id: int
     pickup_location_id: int
     dropoff_location_id: int
-    payment_id: int
+    payment_id: Optional[int] = None

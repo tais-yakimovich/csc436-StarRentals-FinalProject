@@ -5,13 +5,27 @@ from contextlib import asynccontextmanager
 from starlette.middleware.cors import CORSMiddleware
 
 from database import database, DATABASE_URL
-from routes.department_routes_example import router as department_router
+
 from starlette_admin.contrib.sqla import Admin
-from views.department_view_example import DepartmentView
+
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from routes.course_routes_example import router as course_router
-from views.course_view_example import CourseView
+# StarRental Routers
+from routes.locations_routes import router as locations_router
+from routes.payment_info_routes import router as payment_info_router
+from routes.rental_info_routes import router as rental_info_router
+from routes.repairs_routes import router as repairs_router
+from routes.users_routes import router as users_router
+from routes.vehicles_routes import router as vehicles_router
+
+# StarRental Views
+from views.locations_view import LocationsView
+from views.payment_info_view import PaymentInfoView
+from views.rental_info_view import RentalInfoView
+from views.repairs_view import RepairsView
+from views.users_view import UsersView
+from views.vehicles_view import VehiclesView
+
 
 
 @asynccontextmanager
@@ -33,8 +47,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(department_router)
-app.include_router(course_router)
+# StarRental Routers
+app.include_router(locations_router)
+app.include_router(payment_info_router)
+app.include_router(rental_info_router)
+app.include_router(repairs_router)
+app.include_router(users_router)
+app.include_router(vehicles_router)
 
 # Create SQLAlchemy engine for admin
 engine = create_async_engine(DATABASE_URL)
@@ -46,9 +65,15 @@ admin = Admin(
     base_url="/admin"
 )
 
-admin.add_view(DepartmentView)
-#admin.add_view(CourseView)
-
+# StarRental Views
+"""
+admin.add_view(LocationsView)
+admin.add_view(PaymentInfoView)
+admin.add_view(RentalInfoView)
+admin.add_view(RepairsView)
+admin.add_view(UsersView)
+admin.add_view(VehiclesView)
+"""
 admin.mount_to(app)
 
 @app.get("/")

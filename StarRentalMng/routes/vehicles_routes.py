@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from database import database
-from schemas.vehicle import Vehicle
-from crud.vehicle_crud import (
+from schemas.vehicles import Vehicle
+from crud.vehicles_crud import (
     get_vehicles,
     get_vehicle,
     create_vehicle,

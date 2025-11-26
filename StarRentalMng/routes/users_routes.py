@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from database import database
-from schemas.user import User
-from crud.user_crud import (
+from schemas.users import User
+from crud.users_crud import (
     get_users,
     get_user,
     create_user,

@@ -13,18 +13,18 @@ from sqlalchemy.ext.asyncio import create_async_engine
 # StarRental Routers
 from routes.locations_routes import router as locations_router
 from routes.payment_info_routes import router as payment_info_router
-from routes.rental_info_routes import router as rental_info_router
-from routes.repairs_routes import router as repairs_router
+# from routes.rental_info_routes import router as rental_info_router
+# from routes.repairs_routes import router as repairs_router
 from routes.users_routes import router as users_router
 from routes.vehicles_routes import router as vehicles_router
 
 # StarRental Views
-from views.locations_view import LocationsView
-from views.payment_info_view import PaymentInfoView
-from views.rental_info_view import RentalInfoView
-from views.repairs_view import RepairsView
-from views.users_view import UsersView
-from views.vehicles_view import VehiclesView
+# from views.locations_view import locations
+# from views.payment_info_view import PaymentInfoView
+# from views.rental_info_view import RentalInfoView
+# from views.repairs_view import RepairsView
+# from views.users_view import UsersView
+# from views.vehicles_view import VehiclesView
 
 
 
@@ -50,8 +50,8 @@ app.add_middleware(
 # StarRental Routers
 app.include_router(locations_router)
 app.include_router(payment_info_router)
-app.include_router(rental_info_router)
-app.include_router(repairs_router)
+# app.include_router(rental_info_router)
+# app.include_router(repairs_router)
 app.include_router(users_router)
 app.include_router(vehicles_router)
 

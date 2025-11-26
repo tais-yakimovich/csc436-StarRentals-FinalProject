@@ -33,7 +33,7 @@ async def api_create_location(location: Location):
         try:
             await create_location(
                 location.location_id,
-                location.name if hasattr(location, 'name') else location.Lname,
+                location.Lname if hasattr(location, 'Lname') else location.Lname,
                 location.address_line1,
                 getattr(location, 'address_line2', None),
                 location.city,

@@ -6,7 +6,6 @@ from datetime import datetime
 class Location(BaseModel):
     location_id: int
     Lname: str
-    email: Optional[str] = None
     address_line1: str
     address_line2: Optional[str] = None
     city: str
@@ -14,5 +13,6 @@ class Location(BaseModel):
     zip_code: int
     country: str
     phone_number: Optional[str] = None
+    email: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None

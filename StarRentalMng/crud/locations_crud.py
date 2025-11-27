@@ -104,3 +104,42 @@ async def create_location(
 async def delete_location(location_id: int) -> int:
     query = "DELETE FROM locations WHERE location_id = :location_id"
     return await database.execute(query=query, values={"location_id": location_id})
+
+async def update_location(
+    location_id: int,
+    Lname: str,
+    address_line1: str,
+    address_line2: Optional[str],
+    city: str,
+    state: str,
+    zip_code: int,
+    country: str,
+    phone_number: Optional[str],
+    email: Optional[str],
+) -> int:
+    query = """
+        UPDATE locations SET
+            Lname = :Lname,
+            address_line1 = :address_line1,
+            address_line2 = :address_line2,
+            city = :city,
+            state = :state,
+            zip_code = :zip_code,
+            country = :country,
+            phone_number = :phone_number,
+            email = :email,
+            updated_at = NOW()
+        WHERE location_id = :location_id
+    """
+    return await database.execute(query=query, values={
+        "location_id": location_id,
+        "Lname": Lname,
+        "address_line1": address_line1,
+        "address_line2": address_line2,
+        "city": city,
+        "state": state,
+        "zip_code": zip_code,
+        "country": country,
+        "phone_number": phone_number,
+        "email": email,
+    })

@@ -7,6 +7,7 @@ from crud.locations_crud import (
     create_location,
     delete_location,
 )
+from crud.locations_crud import update_location
 
 router = APIRouter(prefix="/api/locations", tags=["Locations"])
 
@@ -55,3 +56,25 @@ async def api_delete_location(location_id: int):
         if deleted == 0:
             raise HTTPException(404, "Location not found")
         return {"detail": "Location deleted"}
+
+from crud.locations_crud import update_location
+
+@router.put("/", response_model=Location)
+async def api_update_location(location: Location):
+    async with database:
+        try:
+            await update_location(
+                location.location_id,
+                location.Lname,
+                location.address_line1,
+                getattr(location, 'address_line2', None),
+                location.city,
+                location.state,
+                int(location.zip_code),
+                location.country,
+                getattr(location, 'phone_number', None),
+                getattr(location, 'email', None),
+            )
+            return location
+        except ValueError as err:
+            raise HTTPException(status_code=400, detail=str(err))

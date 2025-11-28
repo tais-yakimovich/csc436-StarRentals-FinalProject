@@ -1,24 +1,21 @@
-@for (item of items; track item) {
-    <div class="container">
-        <div class="image">
-            <img src="34_sedan_gray.png" class="w-24 h-24 object-cover rounded" width="200" height="150"/>
-        </div>
-        <div class="text">
-            <h2 class="text-lg font-bold">Toyota Camry</h2>
-            <i class="pi pi-user"> 5 Seats</i>
-            <br>
-            <i class="pi pi-car"> Automatic</i>
-            <br>
-            <i class="pi pi-map-marker"> Providence</i>
-            
-        </div>
-        <div class="text" id="price-box">
-            <h3>60 / Day</h3>
-            
-                <p>Total: 180</p>
-            
-            
-            <button pButton type="button" label="Reserve"></button>
-        </div>
+<div *ngFor="let vehicle of vehicles; trackBy: trackByVIN">
+  <!-- Only show the card if the vehicle is available -->
+  <div *ngIf="vehicle.rental_status === 'Available'" class="container">
+    <div class="image">
+      <img [src]="vehicle.photo_url || 'default_image.png'" class="w-24 h-24 object-cover rounded" width="200" height="150" />
     </div>
-} 
+    <div class="text">
+      <h2 class="text-lg font-bold">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</h2>
+      <i class="pi pi-car"> {{ vehicle.body_style }}</i>
+      <br>
+      <i class="pi pi-filter"> {{ vehicle.fuel_type }} </i>
+      <br>
+      <i class="pi pi-map-marker"> {{ vehicle.location.Lname }}, {{ vehicle.location.city }}, {{ vehicle.location.state }}</i>
+    </div>
+    <div class="text" id="price-box">
+      <h3>${{ vehicle.rental_price }} / Day</h3>
+      <br>
+      <button pButton type="button" label="Reserve"></button>
+    </div>
+  </div>
+</div>

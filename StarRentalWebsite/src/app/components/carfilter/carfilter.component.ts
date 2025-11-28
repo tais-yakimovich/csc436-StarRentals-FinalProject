@@ -4,10 +4,9 @@ import { SliderModule } from 'primeng/slider';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from '@angular/common';
-
 @Component({
   selector: 'app-carfilter',
-  imports: [AccordionModule, SliderModule, FormsModule, CheckboxModule, CommonModule],
+  imports: [AccordionModule, SliderModule, FormsModule, CheckboxModule, [CommonModule]],
   templateUrl: './carfilter.component.html',
   styleUrl: './carfilter.component.scss',
 })

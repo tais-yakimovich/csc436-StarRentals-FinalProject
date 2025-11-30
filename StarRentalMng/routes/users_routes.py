@@ -19,7 +19,7 @@ async def api_get_users(skip: int = 0, limit: int = 10):
         rows = await get_users(skip, limit)
         return [User(**dict(r)) for r in rows]
 
-@router.get("/{log_in}", response_model=UserID)
+@router.get("/log_in", response_model=UserID)
 async def api_login(user_username, user_password):
     async with database:
         u = await user_login(user_username, user_password)

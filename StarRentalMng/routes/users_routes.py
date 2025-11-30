@@ -1,8 +1,9 @@
 from fastapi import APIRouter, HTTPException
 from database import database
-from schemas.users import User
+from schemas.users import User, UserID
 from crud.users_crud import (
     get_users,
+    user_login,
     get_user,
     create_user,
     update_user,
@@ -18,6 +19,13 @@ async def api_get_users(skip: int = 0, limit: int = 10):
         rows = await get_users(skip, limit)
         return [User(**dict(r)) for r in rows]
 
+@router.get("/{log_in}", response_model=UserID)
+async def api_login(user_username, user_password):
+    async with database:
+        u = await user_login(user_username, user_password)
+        if not u:
+            raise HTTPException(404, "User not found")
+        return UserID(**u)
 
 @router.get("/{user_id}", response_model=User)
 async def api_get_user(user_id: int):

@@ -20,3 +20,6 @@ class User(BaseModel):
     zip_code: int
     country: str
     created_at: Optional[datetime] = None  # TIMESTAMP default set by DB
+
+class UserID(BaseModel):
+    user_id: int

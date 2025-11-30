@@ -27,6 +27,16 @@ async def get_users(skip: int = 0, limit: int = 10):
     """
     return await database.fetch_all(query=query, values={"limit": limit, "skip": skip})
 
+async def user_login(user_email: str, user_password: str) -> Optional[dict]:
+    query = """
+        SELECT 
+            user_id
+        FROM users
+        WHERE username = :user_email AND password_hash = :user_password
+    """
+    row = await database.fetch_one(query=query, values={"user_email": user_email, "user_password": user_password})
+    return dict(row) if row else None
+
 
 # READ one user by user_id
 async def get_user(user_id: int):

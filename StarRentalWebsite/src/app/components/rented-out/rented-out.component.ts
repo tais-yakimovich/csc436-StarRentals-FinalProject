@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { TableModule } from 'primeng/table';
-
+import { RentalService } from '../../services/rental.service';
+import { RentOuts } from '../../models/rent-outs';
 
 export interface RentalInfo {
   rental_id: number;
@@ -22,31 +23,37 @@ export interface RentalInfo {
   styleUrl: './rented-out.component.scss',
 })
 export class RentedOutComponent {
-  rentals: RentalInfo[] = [
-  {
-    rental_id: 1,
-    start_mileage: 15000,
-    return_mileage: 17850,
-    start_date: '2025-01-10',
-    return_date: '2025-01-15',
-    VIN: '1HGCM82633A004352',
-    user_id: 23,
-    pickup_location_id: 3,
-    dropoff_location_id: 5,
-    payment_id: 101
-  },
-  {
-    rental_id: 1,
-    start_mileage: 15000,
-    return_mileage: 17850,
-    start_date: '2025-01-10',
-    return_date: '2025-01-15',
-    VIN: '1HGCM82633A004352',
-    user_id: 23,
-    pickup_location_id: 3,
-    dropoff_location_id: 5,
-    payment_id: 101
+  rentals: RentOuts[] = []; // Array to store all vehicles
+  totalRentals: number = 0;
+
+   // Total number of cars
+  rental_id: number | null = null;
+  start_mileage: number | null = null;
+  return_mileage: number | null = null;
+  start_date: string = '2025-01-15';
+  return_date: string = '2025-01-15';
+  VIN: string = '';
+  user_id: number | null = null
+  pickup_location_id: number | null = null;
+  dropoff_location_id: number | null = null;
+  payment_id: number | null = null;
+
+  constructor(
+      private RentalService: RentalService,
+    ) {}
+
+  ngOnInit(): void {
+      // Fetch all vehicles from the API
+      this.RentalService.getRental().subscribe(
+        (rentals: RentOuts[]) => {
+          this.rentals = rentals;
+          this.totalRentals = rentals.length;
+          console.log('Fetched Locations:', this.rentals); // Debugging
+        },
+        (error) => {
+          console.error('Error fetching locations:', error);
+        }
+    );
   }
-];
 
 }

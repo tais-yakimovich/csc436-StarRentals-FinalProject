@@ -8,6 +8,7 @@ export interface Location {
   zip_code: number;
   country: string;
   phone_number: string;
+  email: string;
   created_at: string; // ISO date string
   updated_at: string; // ISO date string
 }

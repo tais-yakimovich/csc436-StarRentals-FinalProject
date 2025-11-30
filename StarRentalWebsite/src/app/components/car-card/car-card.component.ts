@@ -6,9 +6,10 @@ import { Vehicle } from '../../models/vehicle';
 import { VehicleServiceService } from '../../services/vehicle-service.service';
 import { Location } from '../../models/location';
 import { LocationService } from '../../services/location.service';
+import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-car-card',
-  imports: [ ButtonModule, DataViewModule, [CommonModule] ],
+  imports: [ ButtonModule, DataViewModule, [CommonModule], DialogModule],
   templateUrl: './car-card.component.html',
   styleUrl: './car-card.component.scss',
 })

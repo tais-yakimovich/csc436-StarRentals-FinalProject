@@ -1,0 +1,102 @@
+
+<div class="container">
+    <p-accordion value="1">
+    <h2>Location Info</h2>
+    <p-accordion-panel value="0">
+    <p-accordion-header>Location Info</p-accordion-header>
+    <p-accordion-content>
+        <div class="input-box">
+            <p-table [value]="locations" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                <tr>
+                    <th>Location ID</th>
+                    <th>Location Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Country</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-location>
+                <tr>
+                    <td>{{ location.location_id }}</td>
+                    <td>{{ location.Lname }}</td>
+                    <td>{{ location.address_line1 }}</td>
+                    <td>{{ location.city }}</td>
+                    <td>{{ location.state }}</td>
+                    <td>{{ location.zip_code }}</td>
+                    <td>{{ location.country }}</td>
+                    <td>{{ location.phone_number }}</td>
+                    <td>{{ location.email }}</td>
+                </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="1">
+  <p-accordion-header>Add New Location</p-accordion-header>
+  <p-accordion-content>
+    <p>Insert values to add a new location</p>
+    <div class="input-box">
+      <p-floatlabel variant="on">
+        <input pInputText id="locationName" [(ngModel)]="Lname" autocomplete="off" />
+        <label for="locationName">Location Name</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="addressLine1" [(ngModel)]="address_line1" autocomplete="off" />
+        <label for="addressLine1">Address Line 1</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="addressLine2" [(ngModel)]="address_line2" autocomplete="off" />
+        <label for="addressLine2">Address Line 2</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="city" [(ngModel)]="city" autocomplete="off" />
+        <label for="city">City</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="state" [(ngModel)]="state" autocomplete="off" />
+        <label for="state">State</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="zipCode" [(ngModel)]="zip_code" autocomplete="off" />
+        <label for="zipCode">Zip Code</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="country" [(ngModel)]="country" autocomplete="off" />
+        <label for="country">Country</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="phoneNumber" [(ngModel)]="phone_number" autocomplete="off" />
+        <label for="phoneNumber">Phone Number</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="phoneNumber" [(ngModel)]="email" autocomplete="off" />
+        <label for="phoneNumber">Email</label>
+      </p-floatlabel>
+    </div>
+    <p-button label="Add Location" (click)="addLocation()"></p-button>
+  </p-accordion-content>
+</p-accordion-panel>
+
+    <p-accordion-panel value="2">
+        <p-accordion-header>Delete Location</p-accordion-header>
+        <p-accordion-content>
+            <p>Insert Location ID to delete location</p>
+            <div class="input-box">
+                <p-floatlabel variant="on">
+                    <input pInputText id="on_label" [(ngModel)]="location_id" autocomplete="off" />
+                    <label for="on_label">Location ID</label>
+                </p-floatlabel>
+            </div>
+            <p-button label="Delete Location" (click)="deleteLocation()"></p-button>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    </p-accordion>
+</div>

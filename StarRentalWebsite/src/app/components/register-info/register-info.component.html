@@ -59,7 +59,7 @@
                 <label for="photo_url">Photo URL</label>
             </p-floatlabel>
             </div>
-            <button pButton type="button" label="Add Car" (click)="addCar()"></button>
+            <p-button label="Add Car" (click)="addCar()"></p-button>
         </p-accordion-content>
     </p-accordion-panel>
 
@@ -104,76 +104,10 @@
                     <label for="on_label">VIN</label>
                 </p-floatlabel>
             </div>
+            <p-button label="Delete Car" (click)="deleteCar()"></p-button>
         </p-accordion-content>
     </p-accordion-panel>
 
     </p-accordion>
 </div>
 
-
-<div class="container">
-    <p-accordion value="1">
-    <h2>Location Info</h2>
-    <p-accordion-panel value="2">
-  <p-accordion-header>Add New Location</p-accordion-header>
-  <p-accordion-content>
-    <p>Insert values to add a new location</p>
-    <div class="input-box">
-      <p-floatlabel variant="on">
-        <input pInputText id="locationName" [(ngModel)]="locationName" autocomplete="off" />
-        <label for="locationName">Location Name</label>
-      </p-floatlabel>
-      <p-floatlabel variant="on">
-        <input pInputText id="addressLine1" [(ngModel)]="addressLine1" autocomplete="off" />
-        <label for="addressLine1">Address Line 1</label>
-      </p-floatlabel>
-      <p-floatlabel variant="on">
-        <input pInputText id="addressLine2" [(ngModel)]="addressLine2" autocomplete="off" />
-        <label for="addressLine2">Address Line 2</label>
-      </p-floatlabel>
-      <p-floatlabel variant="on">
-        <input pInputText id="city" [(ngModel)]="city" autocomplete="off" />
-        <label for="city">City</label>
-      </p-floatlabel>
-      <p-floatlabel variant="on">
-        <input pInputText id="state" [(ngModel)]="state" autocomplete="off" />
-        <label for="state">State</label>
-      </p-floatlabel>
-      <p-floatlabel variant="on">
-        <input pInputText id="zipCode" [(ngModel)]="zipCode" autocomplete="off" />
-        <label for="zipCode">Zip Code</label>
-      </p-floatlabel>
-      <p-floatlabel variant="on">
-        <input pInputText id="country" [(ngModel)]="country" autocomplete="off" />
-        <label for="country">Country</label>
-      </p-floatlabel>
-      <p-floatlabel variant="on">
-        <input pInputText id="phoneNumber" [(ngModel)]="phoneNumber" autocomplete="off" />
-        <label for="phoneNumber">Phone Number</label>
-      </p-floatlabel>
-    </div>
-    <button pButton type="button" label="Add Location" (click)="addLocation()"></button>
-  </p-accordion-content>
-</p-accordion-panel>
-
-    <p-accordion-panel value="3">
-        <p-accordion-header>Delete Location</p-accordion-header>
-        <p-accordion-content>
-            <p>Insert Values to add new location</p>
-            <div class="input-box">
-                <p-floatlabel variant="on">
-                    <input pInputText id="on_label" [(ngModel)]="location_id" autocomplete="off" />
-                    <label for="on_label">Location ID</label>
-                </p-floatlabel>
-            </div>
-
-        </p-accordion-content>
-    </p-accordion-panel>
-    <p-accordion-panel value="4">
-        <p-accordion-header>Header III</p-accordion-header>
-        <p-accordion-content>
-
-        </p-accordion-content>
-    </p-accordion-panel>
-    </p-accordion>
-</div>

@@ -6,7 +6,7 @@ import { Vehicle } from '../models/vehicle';
   providedIn: 'root',
 })
 export class VehicleServiceService {
-  private apiUrl = 'http://127.0.0.1:8007/api/vehicles'; // Replace with your API endpoint
+  private apiUrl = 'http://127.0.0.1:8007/api/vehicles/?skip=0&limit=100'; 
 
   constructor(private http: HttpClient) {}
 
@@ -14,19 +14,17 @@ export class VehicleServiceService {
     return this.http.get<Vehicle[]>(this.apiUrl);
   }
 
-  // Add a new car
-  addCar(car: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/add`, car);
+  addCar(car: Vehicle): Observable<Vehicle> {
+  return this.http.post<Vehicle>(`http://127.0.0.1:8007/api/vehicles/`, car); 
   }
-
   // Delete a car by VIN
   deleteCar(vin: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete/${vin}`);
+    return this.http.delete(`http://127.0.0.1:8007/api/vehicles/${vin}`);
   }
 
   // Fetch a specific vehicle by VIN
   locateCar(vin: string): Observable<Vehicle> {
-    return this.http.get<Vehicle>(`${this.apiUrl}/${vin}`);
+    return this.http.get<Vehicle>(`http://127.0.0.1:8007/api/vehicles/${vin}`);
   }
 
 }

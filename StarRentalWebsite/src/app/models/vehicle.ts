@@ -1,5 +1,5 @@
 export interface Vehicle {
-location: any;
+  location: any;
   VIN: string;
   license_plate: string;
   year: number;

@@ -10,6 +10,14 @@ async def get_repairs(skip: int = 0, limit: int = 10):
     """
     return await database.fetch_all(query=query, values={'limit': limit, 'skip': skip})
 
+async def get_repair_ids_for_VIN(VIN: str):
+    query = """
+        SELECT repair_id
+        FROM repairs
+        WHERE VIN = :VIN
+    """
+    rows = await database.fetch_all(query=query, values={"VIN": VIN})
+    return [dict(row) for row in rows]
 
 # READ one by repair_id
 async def get_repair(repair_id: int):

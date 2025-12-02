@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from database import database
-from schemas.repairs import Repairs
-from crud.repairs_crud import (get_repairs, get_repair, create_repair, update_repair, delete_repair)
+from schemas.repairs import Repairs, RepairID
+from crud.repairs_crud import (get_repairs, get_repair, create_repair, update_repair, delete_repair, get_repair_ids_for_VIN)
 
 router = APIRouter(prefix="/api/repairs", tags=["Repairs"])
 
@@ -21,6 +21,11 @@ async def api_get_repair(repair_id: int):
             raise HTTPException(404, "Repairs not found")
         return Repairs(**c)
 
+@router.get("/vin/{VIN}", response_model=list[RepairID])
+async def api_get_repairs_by_VIN(VIN: str):
+    async with database:
+        rows = await get_repair_ids_for_VIN(VIN)
+        return [RepairID(**dict(r)) for r in rows]
 
 @router.post("/", response_model=Repairs)
 async def api_create_repair(repair: Repairs):

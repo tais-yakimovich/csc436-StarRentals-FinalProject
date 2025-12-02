@@ -5,3 +5,6 @@ class Repairs(BaseModel):
     repair_description: str
     VIN: str
     location_id: int
+
+class RepairID(BaseModel):
+    repair_id: int

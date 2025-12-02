@@ -44,6 +44,16 @@ async def get_payment_info(payment_id: int):
     row = await database.fetch_one(query=query, values={"payment_id": payment_id})
     return dict(row) if row else None
 
+async def get_payment_id_for_user(user_id: int) -> List[dict]:
+    query = """
+        SELECT
+            payment_id
+        FROM payment_info
+        WHERE user_id = :user_id
+    """
+    rows = await database.fetch_all(query=query, values={"user_id": user_id})
+    return [dict(row) for row in rows]
+
 
 async def create_payment_info(
     payment_id: int,

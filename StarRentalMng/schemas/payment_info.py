@@ -15,3 +15,6 @@ class PaymentInfo(BaseModel):
     zip_code: Optional[str] = None
     country: Optional[str] = None
     user_id: Optional[int] = None
+
+class PaymentID(BaseModel):
+    payment_id: int

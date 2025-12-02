@@ -1,8 +1,9 @@
 from fastapi import APIRouter, HTTPException
 from database import database
-from schemas.payment_info import PaymentInfo
+from schemas.payment_info import PaymentInfo, PaymentID
 from crud.payment_info_crud import (
     get_payment_infos,
+    get_payment_id_for_user,
     get_payment_info,
     create_payment_info,
     delete_payment_info,
@@ -26,6 +27,12 @@ async def api_get_payment_info(payment_id: int):
         if not p:
             raise HTTPException(404, "Payment info not found")
         return PaymentInfo(**p)
+
+@router.get("/user/{user_id}", response_model=list[PaymentID])
+async def api_get_payment_infos_by_user(user_id: int):
+    async with database:
+        rows = await get_payment_id_for_user(user_id)
+        return [PaymentID(**dict(r)) for r in rows]
 
 
 @router.post("/", response_model=PaymentInfo)

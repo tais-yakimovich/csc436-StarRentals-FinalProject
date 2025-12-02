@@ -23,6 +23,15 @@ async def get_rental_info_by_id(rental_id: int):
     row = await database.fetch_one(query=query, values={"rental_id": rental_id})
     return dict(row) if row else None
 
+async def get_rental_ids_for_user(user_id: int):
+    query = """
+        SELECT rental_id
+        FROM rental_info
+        WHERE user_id = :user_id
+    """
+    rows = await database.fetch_all(query=query, values={"user_id": user_id})
+    return [dict(row) for row in rows]
+
 # CREATE new course
 async def create_rental_info(
     rental_id: int,

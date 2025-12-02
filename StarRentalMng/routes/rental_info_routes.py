@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from database import database
-from schemas.rental_info import RentalInfo
-from crud.rental_info_crud import (get_rental_info, get_rental_info_by_id, create_rental_info, update_rental_info, delete_rental_info)
+from schemas.rental_info import RentalInfo, RentalID
+from crud.rental_info_crud import (get_rental_info, get_rental_info_by_id, get_rental_ids_for_user, create_rental_info, update_rental_info, delete_rental_info)
 
 router = APIRouter(prefix="/api/rental_info", tags=["Rental Info"])
 
@@ -20,6 +20,12 @@ async def api_get_rental_info_by_id(rental_id: int):
         if not c:
             raise HTTPException(404, "RentalInfo not found")
         return RentalInfo(**c)
+
+@router.get("/user/{user_id}", response_model=list[RentalID])
+async def api_get_rental_infos_by_user(user_id: int):
+    async with database:
+        rows = await get_rental_ids_for_user(user_id)
+        return [RentalID(**dict(r)) for r in rows]
 
 
 @router.post("/", response_model=RentalInfo)

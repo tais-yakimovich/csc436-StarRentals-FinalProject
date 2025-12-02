@@ -17,6 +17,10 @@ export class RentalService {
   addRental(car: RentOuts): Observable<RentOuts> {
   return this.http.post<RentOuts>(`http://127.0.0.1:8007/api/rental_info/`, car); 
   }
+
+  updateRental(car: RentOuts): Observable<RentOuts> {
+  return this.http.put<RentOuts>(`http://127.0.0.1:8007/api/rental_info/`, car); 
+  }
     // Delete a car by VIN
   deleteRental(rental_id: number): Observable<any> {
     return this.http.delete(`http://127.0.0.1:8007/api/rental_info/${rental_id}`);

@@ -1,0 +1,29 @@
+
+<p-dialog header="Reserve a car" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    @if (!loggedInUser){
+        <div class="login">
+            <h2>Please log in or create an account to reserve</h2>
+            <p-button label="Cancel" severity="secondary" (click)="close()" />
+
+            <p-button label="Log in" routerLink="login"></p-button>
+        </div>
+    }
+    @else {
+        @if (paymentInfo === null){
+            <h2>Please add a payment card to reserve</h2>
+        }
+        <h2>Car Details</h2>
+        <p>Make: {{ carData?.make }}</p>
+        <p>Model: {{ carData?.model }}</p>
+        <p>Year: {{ carData?.year }}</p>
+        <p>Cost Per Day: {{ carData?.rental_price }}</p>
+
+        @if (paymentInfo !== null ){
+        <h3>Pay using card ending in {{ paymentInfo.card_number.slice(-4) }}</h3>
+
+        <p-button label="Cancel" severity="secondary" (click)="close()" />
+
+        <p-button label="Reserve" (click)="reserveCar()" />
+        }
+    }
+</p-dialog>

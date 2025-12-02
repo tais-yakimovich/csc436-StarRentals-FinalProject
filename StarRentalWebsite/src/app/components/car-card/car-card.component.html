@@ -15,7 +15,11 @@
     <div class="text" id="price-box">
       <h3>${{ vehicle.rental_price }} / Day</h3>
       <br>
-
+      <p-button (click)="openReserveDialog(vehicle)" label="Reserve"></p-button>
     </div>
   </div>
 </div>
+
+@if (isReserveDialogVisible) {
+<app-reserve-car [carData]="selectedCar" (closeDialog)="closeReserveDialog()"></app-reserve-car>
+}

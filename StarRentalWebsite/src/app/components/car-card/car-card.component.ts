@@ -7,9 +7,10 @@ import { VehicleServiceService } from '../../services/vehicle-service.service';
 import { Location } from '../../models/location';
 import { LocationService } from '../../services/location.service';
 import { DialogModule } from 'primeng/dialog';
+import { ReserveCarComponent } from '../reserve-car/reserve-car.component';
 @Component({
   selector: 'app-car-card',
-  imports: [ ButtonModule, DataViewModule, [CommonModule], DialogModule],
+  imports: [ButtonModule, DataViewModule, [CommonModule], DialogModule, ReserveCarComponent],
   templateUrl: './car-card.component.html',
   styleUrl: './car-card.component.scss',
 })
@@ -22,6 +23,22 @@ export class CarCardComponent {
   ) {}
 
 
+
+  selectedCar: any = null; // Stores the selected car data
+  isReserveDialogVisible: boolean = false;
+
+  // Open the reserve dialog and pass the car data
+  openReserveDialog(car: any): void {
+    this.selectedCar = car; // Set the selected car data
+    this.isReserveDialogVisible = true; // Show the reserve dialog
+  }
+
+  // Close the reserve dialog
+  closeReserveDialog(): void {
+    this.isReserveDialogVisible = false; // Hide the reserve dialog
+  }
+
+  
   trackByVIN(index: number, vehicle: Vehicle): string {
     return vehicle.VIN; // Use VIN as a unique identifier
   }

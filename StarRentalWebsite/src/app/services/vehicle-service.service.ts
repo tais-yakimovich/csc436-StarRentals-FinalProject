@@ -6,7 +6,7 @@ import { Vehicle } from '../models/vehicle';
   providedIn: 'root',
 })
 export class VehicleServiceService {
-  private apiUrl = 'http://127.0.0.1:8007/api/vehicles/?skip=0&limit=100'; 
+  private apiUrl = 'http://127.0.0.1:8007/api/vehicles/?skip=0&limit=50'; 
 
   constructor(private http: HttpClient) {}
 
@@ -15,7 +15,7 @@ export class VehicleServiceService {
   }
 
   addCar(car: Vehicle): Observable<Vehicle> {
-  return this.http.post<Vehicle>(`http://127.0.0.1:8007/api/vehicles/`, car); 
+    return this.http.post<Vehicle>(`http://127.0.0.1:8007/api/vehicles/`, car); 
   }
   // Delete a car by VIN
   deleteCar(vin: string): Observable<any> {

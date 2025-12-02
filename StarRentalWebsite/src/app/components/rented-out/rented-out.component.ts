@@ -4,18 +4,6 @@ import { TableModule } from 'primeng/table';
 import { RentalService } from '../../services/rental.service';
 import { RentOuts } from '../../models/rent-outs';
 
-export interface RentalInfo {
-  rental_id: number;
-  start_mileage: number;
-  return_mileage: number;
-  start_date: string;        // ISO date string from API (e.g. "2025-03-01")
-  return_date: string;       // same as above
-  VIN: string;               // 17-character string
-  user_id: number;
-  pickup_location_id: number;
-  dropoff_location_id: number;
-  payment_id: number;
-}
 @Component({
   selector: 'app-rented-out',
   imports: [TableModule, AccordionModule],

@@ -1,41 +1,114 @@
 <div class="container">
     <div class="login-box">
-        <h1>Star Rentals</h1>
-        <p-floatLabel class="float-label" variant="on">
-            <p-iconfield>
-                <p-inputicon class="pi pi-user" />
-                <input pInputText id="first_name" [(ngModel)]="first_name" />
-                <label for="first_name">First Name</label>
-            </p-iconfield>
-        </p-floatLabel>
-        <p-floatLabel class="float-label" variant="on">
-            <p-iconfield>
-                <p-inputicon class="pi pi-user" />
-                <input pInputText id="last_name" [(ngModel)]="last_name" />
-                <label for="last_name">Last Name</label>
-            </p-iconfield>
-        </p-floatLabel>
-        <p-floatLabel class="float-label" variant="on">
-            <p-iconfield>
-                <p-inputicon class="pi pi-envelope" />
-                <input pInputText id="email" [(ngModel)]="email" />
-                <label for="username">Email</label>
-            </p-iconfield>
-        </p-floatLabel>
-        <p-floatLabel class="float-label" variant="on">
-            <p-iconfield>
-                <p-inputicon class="pi pi-lock" />
-                <p-password [feedback]="false" [(ngModel)]="password" inputId="password" [toggleMask]="true"></p-password>
-                <label for="password">Password</label>
-            </p-iconfield>
-        </p-floatLabel>
-        <p-floatLabel class="float-label" variant="on">
-            <p-iconfield>
-                <p-inputicon class="pi pi-lock" />
-                <p-password [feedback]="false" [(ngModel)]="confirm_password" inputId="confirm_password" [toggleMask]="true"></p-password>
-                <label for="password">Confirm Password</label>
-            </p-iconfield>
-        </p-floatLabel>
-        <p-button label="Next" variant="outlined"></p-button>
+        @if (isFirstPage) {
+            <div class="first-page">
+                <h1>Sign Up</h1>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-envelope" />
+                        <input pInputText id="email" [(ngModel)]="username" />
+                        <label for="username">Username</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-lock" />
+                        <p-password [feedback]="false" [(ngModel)]="password_hash" inputId="password" [toggleMask]="true"></p-password>
+                        <label for="password">Password</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-user" />
+                        <input pInputText id="first_name" [(ngModel)]="first_name" />
+                        <label for="first_name">First Name</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-user" />
+                        <input pInputText id="last_name" [(ngModel)]="last_name" />
+                        <label for="last_name">Last Name</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-phone" />
+                        <input pInputText id="email" [(ngModel)]="phone_number" />
+                        <label for="username">Phone Number</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-user" />                        
+                        <p-inputmask mask="9999-99-99" [(ngModel)]="date_of_birth" placeholder="YYYY-MM-DD" />
+                        <label for="last_name">Date of Birth</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-button label="Next" variant="outlined" (click)="secondPage()"></p-button>
+            </div>
+        }
+        @if (isSecondPage) {
+            <h1>Address Information</h1>
+            <div class="second-page">
+
+                <div>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                            <p-inputicon class="pi pi-user" />
+                            <input pInputText id="address_line1" [(ngModel)]="address_line1" />
+                            <label for="first_name">Address</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-user" />
+                        <input pInputText id="city" [(ngModel)]="city" />
+                        <label for="last_name">City</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-envelope" />
+                        <input pInputText id="zip_code" [(ngModel)]="zip_code" />
+                        <label for="username">Zip Code</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-envelope" />
+                        <input pInputText id="state" [(ngModel)]="state" />
+                        <label for="username">State</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-envelope" />
+                        <input pInputText id="country" [(ngModel)]="country" />
+                        <label for="username">Country</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                </div>
+                <div>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-envelope" />
+                        <input pInputText id="driver_license_number" [(ngModel)]="driver_license_number" />
+                        <label for="username">Driver License Number</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                <p-floatLabel class="float-label" variant="on">
+                    <p-iconfield>
+                        <p-inputicon class="pi pi-envelope" />
+                        <input pInputText id="driver_license_state" [(ngModel)]="driver_license_state" />
+                        <label for="username">Driver License State</label>
+                    </p-iconfield>
+                </p-floatLabel>
+                </div>
+                
+            </div>
+            <p-button label="Sign Up" variant="outlined" routerLink="login" (click)="signUp()"></p-button>
+        }
     </div>
+
 </div>

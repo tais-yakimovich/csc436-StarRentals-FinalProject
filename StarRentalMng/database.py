@@ -6,4 +6,4 @@ USERNAME = "root"
 PASSWORD = "password"
 
 DATABASE_URL = f"mysql+aiomysql://{USERNAME}:{PASSWORD}@localhost:3306/Star_Rentals"
-database = Database(DATABASE_URL)
+database = Database(DATABASE_URL, min_size=1, max_size=20)

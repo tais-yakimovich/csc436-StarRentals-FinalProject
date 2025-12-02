@@ -10,6 +10,10 @@
 h1 {
     color:aliceblue;
 }
+
+h2 {
+    color:aliceblue;
+}
 .car-button {
     background-color: transparent;
     color: white;
@@ -37,4 +41,11 @@ h1 {
 
 .car-button{
     background-color: none;
+}
+
+.userBox {
+    display: flex;
+}
+:host ::ng-deep .p-button {
+  margin: 0px;
 }

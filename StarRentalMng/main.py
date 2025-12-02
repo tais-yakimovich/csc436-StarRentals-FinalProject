@@ -80,8 +80,6 @@ admin.mount_to(app)
 async def root():
     return {
         "message": "Welcome to Database Course Project 2",
-        "dashboard_url": "/dashboard",
-        "admin_url": "/admin",
         "api_docs": "/docs"
     }
 

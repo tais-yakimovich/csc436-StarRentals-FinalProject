@@ -7,6 +7,7 @@ from crud.vehicles_crud import (
     create_vehicle,
     update_vehicle,
     delete_vehicle,
+    get_vehicles_at_location
 )
 
 router = APIRouter(prefix="/api/vehicles", tags=["Vehicles"])
@@ -27,6 +28,11 @@ async def api_get_vehicle(vin: str):
             raise HTTPException(404, "Vehicle not found")
         return Vehicle(**v)
 
+@router.get("/location/{location_id}", response_model=list[Vehicle])
+async def api_get_vehicles_at_location(location_id: int):
+    async with database:
+        rows = await get_vehicles_at_location(location_id)
+        return [Vehicle(**dict(r)) for r in rows]
 
 @router.post("/", response_model=Vehicle)
 async def api_create_vehicle(vehicle: Vehicle):

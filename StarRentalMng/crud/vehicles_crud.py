@@ -78,6 +78,27 @@ async def get_vehicle_with_location(vin: str):
     row = await database.fetch_one(query=query, values={"vin": vin})
     return dict(row) if row else None
 
+async def get_vehicles_at_location(location_id: int) -> List[dict]:
+    query = """
+        SELECT 
+            VIN,
+            license_plate,
+            year,
+            make,
+            model,
+            body_style,
+            color,
+            miles,
+            rental_price,
+            location_id,
+            fuel_type,
+            rental_status,
+            photo_url
+        FROM vehicles
+        WHERE location_id = :location_id
+    """
+    rows = await database.fetch_all(query=query, values={"location_id": location_id})
+    return [dict(row) for row in rows]
 
 # CREATE new vehicle
 async def create_vehicle(

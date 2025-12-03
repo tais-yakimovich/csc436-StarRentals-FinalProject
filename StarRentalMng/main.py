@@ -26,8 +26,6 @@ from routes.vehicles_routes import router as vehicles_router
 # from views.users_view import UsersView
 # from views.vehicles_view import VehiclesView
 
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await database.connect()

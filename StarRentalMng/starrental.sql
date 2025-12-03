@@ -1,4 +1,7 @@
 DROP DATABASE IF EXISTS Star_Rentals;
+DROP USER IF EXISTS 'star_admin'@'localhost';
+DROP USER IF EXISTS 'star_app'@'%';
+DROP USER IF EXISTS 'star_readonly'@'%';
 
 CREATE SCHEMA Star_Rentals;
 USE Star_Rentals;
@@ -262,8 +265,9 @@ SELECT * from payment_info;
 -- ======================
 -- 1) Remove a stored payment method
 DELETE FROM payment_info
-WHERE payment_id = 5;
+WHERE payment_id = 2;
 
+Select * from payment_info;
 -- 2) Archive/clean old rentals (e.g., rentals completed before July 1, 2025)
 DELETE FROM rental_info 
 WHERE
@@ -311,13 +315,7 @@ SELECT
     l.Lname AS location_name
 FROM vehicles v
 JOIN locations l ON v.location_id = l.location_id;
-
--- TO DO
--- 1.Index on rentals table 
--- 2. Views - two views
--- 3. All types of joins (at least 1 natural join, 1 inner join, 1 left join, 1 right join)
--- 4. Filter commands like max, min, avg, sum
--- 5. include in your queries statements like group by, having, order by, etc.  
+ 
 
 /* ---------------------------------------------------------
    1) INDEXES on the rentals table (rental_info)
@@ -329,6 +327,7 @@ CREATE INDEX idx_rentalinfo_dates        ON rental_info (start_date, return_date
 CREATE INDEX idx_rentalinfo_locations    ON rental_info (pickup_location_id, dropoff_location_id);
 CREATE INDEX idx_rentalinfo_payment      ON rental_info (payment_id);
 
+SHOW INDEXES FROM rental_info WHERE Key_name = 'idx_rentalinfo_vin';
 /* ---------------------------------------------------------
    2) VIEWS
    --------------------------------------------------------- */
@@ -353,6 +352,8 @@ JOIN vehicles v ON v.VIN = r.VIN
 JOIN users    u ON u.user_id = r.user_id
 WHERE r.start_date <= CURDATE()
   AND (r.return_date IS NULL OR r.return_date >= CURDATE());
+  
+  Select * from v_current_rentals;
 
 /* View #2: v_vehicle_utilization
    How heavily is each vehicle used (rental count, miles driven, average rental length)?
@@ -368,6 +369,8 @@ SELECT
 FROM vehicles v
 LEFT JOIN rental_info r ON r.VIN = v.VIN
 GROUP BY v.VIN, v.make, v.model;
+
+Select * from v_vehicle_utilization;
 
 /* ---------------------------------------------------------
    3) JOINS
@@ -506,3 +509,38 @@ FROM vehicles v
 JOIN locations l ON l.location_id = v.location_id
 GROUP BY l.Lname, v.rental_status
 ORDER BY l.Lname, vehicle_count DESC;
+
+/* 
+	Grant all privilegies to a super user
+*/
+CREATE USER 'star_admin'@'localhost' IDENTIFIED BY 'StrongAdminPassword!';
+
+-- Give full privileges on this schema
+GRANT ALL PRIVILEGES
+ON Star_Rentals.*
+TO 'star_admin'@'localhost'
+WITH GRANT OPTION;
+
+/*
+	 Create another user with privilegies. 
+     Grant, Revoke privilegies
+     Drop the user
+*/
+
+CREATE USER 'star_student'@'localhost' IDENTIFIED BY 'StudentPass2025!';
+-- Allow reading data from ALL tables in the DB
+GRANT SELECT ON Star_Rentals.* TO 'star_student'@'localhost';
+
+-- Allow modifying only the rental and repair related data
+GRANT INSERT, UPDATE ON Star_Rentals.rental_info TO 'star_student'@'localhost';
+GRANT INSERT, UPDATE, DELETE ON Star_Rentals.repairs TO 'star_student'@'localhost';
+
+-- Allow to create views, but NOT tables or structure changes
+GRANT CREATE VIEW, SHOW VIEW ON Star_Rentals.* TO 'star_student'@'localhost';
+
+-- Revoke delete permission on repairs, but keep insert/update
+REVOKE DELETE ON Star_Rentals.repairs FROM 'star_student'@'localhost';
+
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'star_student'@'localhost';
+
+DROP USER 'star_student'@'localhost';

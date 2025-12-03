@@ -25,7 +25,8 @@ async def get_rental_info_by_id(rental_id: int):
 
 async def get_rental_ids_for_user(user_id: int):
     query = """
-        SELECT rental_id
+        SELECT rental_id, start_mileage, return_mileage, start_date, return_date,
+               VIN, user_id, pickup_location_id, dropoff_location_id, payment_id
         FROM rental_info
         WHERE user_id = :user_id
     """

@@ -16,3 +16,8 @@ class Vehicle(BaseModel):
     fuel_type: str
     rental_status: str
     photo_url: str
+
+class VehicleFilters(BaseModel):
+    body_style: list[str]
+    location_id: list[int]
+    fuel_type: list[str]

@@ -21,11 +21,11 @@ async def api_get_rental_info_by_id(rental_id: int):
             raise HTTPException(404, "RentalInfo not found")
         return RentalInfo(**c)
 
-@router.get("/user/{user_id}", response_model=list[RentalID])
+@router.get("/user/{user_id}", response_model=list[RentalInfo])
 async def api_get_rental_infos_by_user(user_id: int):
     
         rows = await get_rental_ids_for_user(user_id)
-        return [RentalID(**dict(r)) for r in rows]
+        return [RentalInfo(**dict(r)) for r in rows]
 
 
 @router.post("/", response_model=RentalInfo)

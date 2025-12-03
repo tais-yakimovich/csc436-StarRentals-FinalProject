@@ -131,6 +131,40 @@ async def get_vehicles_at_locations_date_range(location_id: int, start_date: str
     })
     return [dict(row) for row in rows]
 
+async def get_vehicles_filtered(location_id: list[int],
+                                start_date: str, 
+                                end_date: str, 
+                                body_style: list[str], 
+                                price_max: int, 
+                                fuel_type: list[str]):
+    
+    location_id_list = ','.join([f":location_id_{i}" for i in range(len(location_id))])
+    body_style_list = ','.join([f":body_style_{i}" for i in range(len(body_style))])
+    fuel_type_list = ','.join([f":fuel_type_{i}" for i in range(len(fuel_type))])
+    query = f"""
+    SELECT *
+    FROM vehicles v
+    WHERE v.location_id IN ({location_id_list})
+    AND v.VIN NOT IN (
+        SELECT r.VIN
+        FROM rental_info r
+        WHERE (r.start_date <= :end_date AND r.return_date >= :start_date)
+    )
+    AND v.body_style IN ({body_style_list})
+    AND v.rental_price <= :price_max
+    AND v.fuel_type IN ({fuel_type_list})
+    """
+
+    values = {f"location_id_{i}": val for i, val in enumerate(location_id)}
+    values["start_date"] = start_date
+    values["end_date"] = end_date
+    values.update({f"body_style_{i}": val for i, val in enumerate(body_style)})
+    values["price_max"] = price_max
+    values.update({f"fuel_type_{i}": val for i, val in enumerate(fuel_type)})
+
+    rows = await database.fetch_all(query=query, values=values)
+    return [dict(row) for row in rows]
+
 # CREATE new vehicle
 async def create_vehicle(
     VIN: str,

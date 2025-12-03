@@ -32,8 +32,7 @@ async def api_get_rental_infos_by_user(user_id: int):
 async def api_create_rental_info(rental_info: RentalInfo):
     
         try:
-            code = await create_rental_info(
-                rental_info.rental_id,
+            rental_id = await create_rental_info(
                 rental_info.start_mileage,
                 rental_info.return_mileage,
                 rental_info.start_date,
@@ -43,6 +42,7 @@ async def api_create_rental_info(rental_info: RentalInfo):
                 rental_info.pickup_location_id,
                 rental_info.dropoff_location_id,
                 rental_info.payment_id)
+            rental_info.rental_id = rental_id
             return RentalInfo(**rental_info.dict())
         except ValueError as err:
             raise HTTPException(status_code=400, detail=str(err))

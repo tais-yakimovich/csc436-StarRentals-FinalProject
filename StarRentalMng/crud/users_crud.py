@@ -67,7 +67,6 @@ async def get_user(user_id: int):
 
 # CREATE new user
 async def create_user(
-    user_id: int,
     username: str,
     password_hash: str,
     phone_number: str,
@@ -85,7 +84,6 @@ async def create_user(
 ) -> int:
     query = """
         INSERT INTO users (
-            user_id,
             username,
             password_hash,
             phone_number,
@@ -103,7 +101,6 @@ async def create_user(
             created_at
         )
         VALUES (
-            :user_id,
             :username,
             :password_hash,
             :phone_number,
@@ -122,10 +119,9 @@ async def create_user(
         )
     """
     try:
-        await database.execute(
+        user_id = await database.execute(
             query=query,
             values={
-                "user_id": user_id,
                 "username": username,
                 "password_hash": password_hash,
                 "phone_number": phone_number,
@@ -145,7 +141,7 @@ async def create_user(
         return user_id
     except Exception as err:
         # Could be duplicate user_id or username, or FK issues if you add FKs later
-        raise ValueError(f"User with id {user_id} already exists or invalid data. ({err})")
+        raise ValueError(f"Failed ({err})")
 
 
 # UPDATE existing user

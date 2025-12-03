@@ -46,7 +46,6 @@ async def get_location(location_id: int):
 
 
 async def create_location(
-    location_id: int,
     Lname: str,
     address_line1: str,
     address_line2: Optional[str],
@@ -59,7 +58,6 @@ async def create_location(
 ) -> int:
     query = """
         INSERT INTO locations (
-            location_id,
             Lname,
             address_line1,
             address_line2,
@@ -72,7 +70,6 @@ async def create_location(
             created_at,
             updated_at
         ) VALUES (
-            :location_id,
             :Lname,
             :address_line1,
             :address_line2,
@@ -86,8 +83,7 @@ async def create_location(
             NOW()
         )
     """
-    await database.execute(query=query, values={
-        "location_id": location_id,
+    location_id = await database.execute(query=query, values={
         "Lname": Lname,
         "address_line1": address_line1,
         "address_line2": address_line2,

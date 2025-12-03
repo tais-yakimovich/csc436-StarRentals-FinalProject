@@ -39,8 +39,7 @@ async def api_get_payment_infos_by_user(user_id: int):
 async def api_create_payment_info(payment_info: PaymentInfo):
     
         try:
-            await create_payment_info(
-                payment_info.payment_id,
+            payment_id = await create_payment_info(
                 payment_info.cardholder_name,
                 payment_info.card_number,
                 payment_info.exp_month,
@@ -53,6 +52,7 @@ async def api_create_payment_info(payment_info: PaymentInfo):
                 getattr(payment_info, 'country', None),
                 getattr(payment_info, 'user_id', None),
             )
+            payment_info.payment_id = payment_id
             return payment_info
         except ValueError as err:
             raise HTTPException(status_code=400, detail=str(err))

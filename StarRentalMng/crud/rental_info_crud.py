@@ -35,7 +35,6 @@ async def get_rental_ids_for_user(user_id: int):
 
 # CREATE new course
 async def create_rental_info(
-    rental_id: int,
     start_mileage: int,
     return_mileage: int,
     start_date,
@@ -48,16 +47,15 @@ async def create_rental_info(
 ) -> int:
     query = """
         INSERT INTO rental_info (
-            rental_id, start_mileage, return_mileage, start_date, return_date,
+            start_mileage, return_mileage, start_date, return_date,
             VIN, user_id, pickup_location_id, dropoff_location_id, payment_id
         ) VALUES (
-            :rental_id, :start_mileage, :return_mileage, :start_date, :return_date,
+            :start_mileage, :return_mileage, :start_date, :return_date,
             :VIN, :user_id, :pickup_location_id, :dropoff_location_id, :payment_id
         )
     """
     try:
-        await database.execute(query=query, values={
-            "rental_id": rental_id,
+        rental_id = await database.execute(query=query, values={
             "start_mileage": start_mileage,
             "return_mileage": return_mileage,
             "start_date": start_date,

@@ -32,8 +32,7 @@ async def api_get_location(location_id: int):
 async def api_create_location(location: Location):
     
         try:
-            await create_location(
-                location.location_id,
+            location_id = await create_location(
                 location.Lname if hasattr(location, 'Lname') else location.Lname,
                 location.address_line1,
                 getattr(location, 'address_line2', None),
@@ -44,6 +43,7 @@ async def api_create_location(location: Location):
                 getattr(location, 'phone_number', None),
                 getattr(location, 'email', None),
             )
+            location.location_id = location_id
             return location
         except ValueError as err:
             raise HTTPException(status_code=400, detail=str(err))

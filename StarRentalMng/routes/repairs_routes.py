@@ -31,7 +31,8 @@ async def api_get_repairs_by_VIN(VIN: str):
 async def api_create_repair(repair: Repairs):
     
         try:
-            code = await create_repair(repair.repair_id, repair.repair_description, repair.VIN, repair.location_id)
+            repair_id = await create_repair(repair.repair_description, repair.VIN, repair.location_id)
+            repair.repair_id = repair_id
             return Repairs(**repair.dict())
         except ValueError as err:
             raise HTTPException(status_code=400, detail=str(err))

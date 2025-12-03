@@ -30,14 +30,13 @@ async def get_repair(repair_id: int):
     return dict(row) if row else None
 
 # CREATE new course
-async def create_repair(repair_id: int, repair_description: str, VIN: int, location_id: int) -> int:
+async def create_repair(repair_description: str, VIN: int, location_id: int) -> int:
     query = """
-        INSERT INTO repairs (repair_id, repair_description, VIN, location_id)
-        VALUES (:repair_id, :repair_description, :VIN, :location_id)
+        INSERT INTO repairs (repair_description, VIN, location_id)
+        VALUES (:repair_description, :VIN, :location_id)
     """
     try:
-        await database.execute(query=query, values={
-            "repair_id": repair_id,
+        repair_id = await database.execute(query=query, values={
             "repair_description": repair_description,
             "VIN": VIN,
             "location_id": location_id

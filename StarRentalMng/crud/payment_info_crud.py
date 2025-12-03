@@ -56,7 +56,6 @@ async def get_payment_id_for_user(user_id: int) -> List[dict]:
 
 
 async def create_payment_info(
-    payment_id: int,
     cardholder_name: str,
     card_number: str,
     exp_month: str,
@@ -71,7 +70,6 @@ async def create_payment_info(
 ) -> int:
     query = """
         INSERT INTO payment_info (
-            payment_id,
             cardholder_name,
             card_number,
             exp_month,
@@ -84,7 +82,6 @@ async def create_payment_info(
             country,
             user_id
         ) VALUES (
-            :payment_id,
             :cardholder_name,
             :card_number,
             :exp_month,
@@ -98,8 +95,7 @@ async def create_payment_info(
             :user_id
         )
     """
-    await database.execute(query=query, values={
-        "payment_id": payment_id,
+    payment_id = await database.execute(query=query, values={
         "cardholder_name": cardholder_name,
         "card_number": card_number,
         "exp_month": exp_month,

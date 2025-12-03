@@ -40,8 +40,7 @@ async def api_get_user(user_id: int):
 async def api_create_user(user: User):
     
         try:
-            await create_user(
-                user.user_id,
+            user_id = await create_user(
                 user.username,
                 user.password_hash,
                 user.phone_number,
@@ -57,8 +56,9 @@ async def api_create_user(user: User):
                 user.zip_code,
                 user.country,
             )
+            user.user_id = user_id
             return user
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
 
 

@@ -9,7 +9,7 @@ USE Star_Rentals;
 -- ======================
 -- 1. LOCATIONS
 CREATE TABLE locations (
-    location_id INT PRIMARY KEY,
+    location_id SERIAL PRIMARY KEY,
     Lname CHAR(100),
     address_line1 VARCHAR(100),
     address_line2 VARCHAR(100),
@@ -25,7 +25,7 @@ CREATE TABLE locations (
 
 -- 2. USERS
 CREATE TABLE users (
-    user_id INT PRIMARY KEY,
+    user_id SERIAL PRIMARY KEY,
     username VARCHAR(100),
     password_hash VARCHAR(100),
     phone_number VARCHAR(8),
@@ -45,7 +45,7 @@ CREATE TABLE users (
 
 -- 3. PAYMENT_INFO
 CREATE TABLE payment_info (
-    payment_id INT PRIMARY KEY,
+    payment_id SERIAL PRIMARY KEY,
     cardholder_name VARCHAR(100),
     card_number CHAR(16),
     exp_month CHAR(2),
@@ -56,7 +56,7 @@ CREATE TABLE payment_info (
     state VARCHAR(2),
     zip_code CHAR(10),
     country VARCHAR(50),
-    user_id INT
+    user_id BIGINT UNSIGNED
 );
 
 -- 4. VEHICLES
@@ -70,7 +70,7 @@ CREATE TABLE vehicles (
     color VARCHAR(100),
     miles INTEGER,
     rental_price FLOAT,
-    location_id INTEGER,
+    location_id BIGINT UNSIGNED,
     fuel_type VARCHAR(50),
     rental_status VARCHAR(50),
     photo_url VARCHAR(256) NOT NULL
@@ -78,24 +78,24 @@ CREATE TABLE vehicles (
 
 -- 5. RENTAL_INFO
 CREATE TABLE rental_info (
-    rental_id INT PRIMARY KEY,
+    rental_id SERIAL PRIMARY KEY,
     start_mileage INT,
     return_mileage INT,
     start_date DATE,
     return_date DATE,
     VIN CHAR(17),
-    user_id INT,
-    pickup_location_id INT,
-    dropoff_location_id INT,
-    payment_id INT
+    user_id BIGINT UNSIGNED,
+    pickup_location_id BIGINT UNSIGNED,
+    dropoff_location_id BIGINT UNSIGNED,
+    payment_id BIGINT UNSIGNED
 );
 
 -- 6. REPAIRS
 CREATE TABLE repairs (
-    repair_id INT PRIMARY KEY,
+    repair_id SERIAL PRIMARY KEY,
     repair_description VARCHAR(1000),
     VIN CHAR(17),
-    location_id INT
+    location_id BIGINT UNSIGNED
 );
 
 -- ======================
@@ -161,27 +161,28 @@ REFERENCES locations(location_id) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- 1. LOCATIONS
 INSERT INTO locations VALUES
-(1, 'Downtown Branch', '123 Main St', NULL, 'Providence', 'RI', 02903, 'USA', '401-555-1000', 'downtown@rentalco.com', NOW(), NOW()),
-(2, 'Airport Branch', '1 Airport Rd', 'Terminal A', 'Warwick', 'RI', 02886, 'USA', '401-555-2000', 'airport@rentalco.com', NOW(), NOW()),
-(3, 'East Side Branch', '88 Thayer St', NULL, 'Providence', 'RI', 02906, 'USA', '401-555-3000', 'eastside@rentalco.com', NOW(), NOW()),
-(4, 'Newport Branch', '45 Ocean Ave', NULL, 'Newport', 'RI', 02840, 'USA', '401-555-4000', 'newport@rentalco.com', NOW(), NOW()),
-(5, 'Boston Branch', '500 Beacon St', NULL, 'Boston', 'MA', 02115, 'USA', '617-555-5000', 'boston@rentalco.com', NOW(), NOW());
+(DEFAULT, 'Downtown Branch', '123 Main St', NULL, 'Providence', 'RI', 02903, 'USA', '401-555-1000', 'downtown@rentalco.com', NOW(), NOW()),
+(DEFAULT, 'Airport Branch', '1 Airport Rd', 'Terminal A', 'Warwick', 'RI', 02886, 'USA', '401-555-2000', 'airport@rentalco.com', NOW(), NOW()),
+(DEFAULT, 'East Side Branch', '88 Thayer St', NULL, 'Providence', 'RI', 02906, 'USA', '401-555-3000', 'eastside@rentalco.com', NOW(), NOW()),
+(DEFAULT, 'Newport Branch', '45 Ocean Ave', NULL, 'Newport', 'RI', 02840, 'USA', '401-555-4000', 'newport@rentalco.com', NOW(), NOW()),
+(DEFAULT, 'Boston Branch', '500 Beacon St', NULL, 'Boston', 'MA', 02115, 'USA', '617-555-5000', 'boston@rentalco.com', NOW(), NOW()),
+(DEFAULT,'Boston Branch', '500 Beacon St', NULL, 'Boston', 'MA', 02115, 'USA', '617-555-5000', 'boston@rentalco.com', NOW(), NOW());
 
 -- 2. USERS
 INSERT INTO users VALUES
-(1, 'jdoe', 'hash123', '5551234', 'John', 'Doe', '1988-04-10', 10012345, 'RI', '12 Elm St', NULL, 'Providence', 'RI', 02903, 'USA', NOW()),
-(2, 'asmith', 'hash456', '5555678', 'Alice', 'Smith', '1992-07-21', 20054321, 'MA', '90 Pine Rd', NULL, 'Boston', 'MA', 02115, 'USA', NOW()),
-(3, 'bwilson', 'hash789', '5559012', 'Bob', 'Wilson', '1985-11-02', 30098765, 'RI', '44 Oak Ave', NULL, 'Newport', 'RI', 02840, 'USA', NOW()),
-(4, 'cjohnson', 'hash234', '5553456', 'Carol', 'Johnson', '1990-02-18', 40067890, 'RI', '777 Hope St', NULL, 'Providence', 'RI', 02906, 'USA', NOW()),
-(5, 'dlee', 'hash890', '5557890', 'David', 'Lee', '1995-05-14', 50011223, 'MA', '321 River St', NULL, 'Cambridge', 'MA', 02139, 'USA', NOW());
+(DEFAULT, 'jdoe', 'hash123', '5551234', 'John', 'Doe', '1988-04-10', 10012345, 'RI', '12 Elm St', NULL, 'Providence', 'RI', 02903, 'USA', NOW()),
+(DEFAULT, 'asmith', 'hash456', '5555678', 'Alice', 'Smith', '1992-07-21', 20054321, 'MA', '90 Pine Rd', NULL, 'Boston', 'MA', 02115, 'USA', NOW()),
+(DEFAULT, 'bwilson', 'hash789', '5559012', 'Bob', 'Wilson', '1985-11-02', 30098765, 'RI', '44 Oak Ave', NULL, 'Newport', 'RI', 02840, 'USA', NOW()),
+(DEFAULT, 'cjohnson', 'hash234', '5553456', 'Carol', 'Johnson', '1990-02-18', 40067890, 'RI', '777 Hope St', NULL, 'Providence', 'RI', 02906, 'USA', NOW()),
+(DEFAULT, 'dlee', 'hash890', '5557890', 'David', 'Lee', '1995-05-14', 50011223, 'MA', '321 River St', NULL, 'Cambridge', 'MA', 02139, 'USA', NOW());
 
 -- 3. PAYMENT_INFO
 INSERT INTO payment_info VALUES
-(1, 'John Doe', '4111111111111111', '05', '2027', '123', '12 Elm St', 'Providence', 'RI', '02903', 'USA', 1),
-(2, 'Alice Smith', '5555555555554444', '11', '2026', '456', '90 Pine Rd', 'Boston', 'MA', '02115', 'USA', 2),
-(3, 'Bob Wilson', '378282246310005', '09', '2025', '789', '44 Oak Ave', 'Newport', 'RI', '02840', 'USA', 3),
-(4, 'Carol Johnson', '6011000990139424', '03', '2028', '234', '777 Hope St', 'Providence', 'RI', '02906', 'USA', 4),
-(5, 'David Lee', '3530111333300000', '12', '2029', '890', '321 River St', 'Cambridge', 'MA', '02139', 'USA', 5);
+(DEFAULT, 'John Doe', '4111111111111111', '05', '2027', '123', '12 Elm St', 'Providence', 'RI', '02903', 'USA', 1),
+(DEFAULT, 'Alice Smith', '5555555555554444', '11', '2026', '456', '90 Pine Rd', 'Boston', 'MA', '02115', 'USA', 2),
+(DEFAULT, 'Bob Wilson', '378282246310005', '09', '2025', '789', '44 Oak Ave', 'Newport', 'RI', '02840', 'USA', 3),
+(DEFAULT, 'Carol Johnson', '6011000990139424', '03', '2028', '234', '777 Hope St', 'Providence', 'RI', '02906', 'USA', 4),
+(DEFAULT, 'David Lee', '3530111333300000', '12', '2029', '890', '321 River St', 'Cambridge', 'MA', '02139', 'USA', 5);
 
 -- 4. VEHICLES
 INSERT INTO vehicles VALUES
@@ -193,19 +194,19 @@ INSERT INTO vehicles VALUES
 
 -- 5. RENTAL_INFO
 INSERT INTO rental_info VALUES
-(1, 30000, 30500, '2025-07-01', '2025-07-05', '1HGCM82633A123456', 1, 1, 2, 1),
-(2, 22000, 22550, '2025-06-10', '2025-06-15', '1FTFW1EF1EFA23456', 2, 2, 2, 2),
-(3, 15000, 15250, '2025-08-20', '2025-08-23', '1C4RJFAG1FC123456', 3, 3, 3, 3),
-(4, 40000, 40320, '2025-05-10', '2025-05-12', '5NPE24AF7FH123456', 4, 4, 4, 4),
-(5, 10000, 10200, '2025-09-02', '2025-09-06', '3FA6P0LU0HR123456', 5, 5, 1, 5);
+(DEFAULT, 30000, 30500, '2025-07-01', '2025-07-05', '1HGCM82633A123456', 1, 1, 2, 1),
+(DEFAULT, 22000, 22550, '2025-06-10', '2025-06-15', '1FTFW1EF1EFA23456', 2, 2, 2, 2),
+(DEFAULT, 15000, 15250, '2025-08-20', '2025-08-23', '1C4RJFAG1FC123456', 3, 3, 3, 3),
+(DEFAULT, 40000, 40320, '2025-05-10', '2025-05-12', '5NPE24AF7FH123456', 4, 4, 4, 4),
+(DEFAULT, 10000, 10200, '2025-09-02', '2025-09-06', '3FA6P0LU0HR123456', 5, 5, 1, 5);
 
 -- 6. REPAIRS
 INSERT INTO repairs VALUES
-(1, 'Oil change and tire rotation', '5NPE24AF7FH123456', 4),
-(2, 'Brake pad replacement', '1HGCM82633A123456', 1),
-(3, 'Battery replacement', '3FA6P0LU0HR123456', 5),
-(4, 'Windshield replacement', '1FTFW1EF1EFA23456', 2),
-(5, 'Engine diagnostic', '1C4RJFAG1FC123456', 3);
+(DEFAULT, 'Oil change and tire rotation', '5NPE24AF7FH123456', 4),
+(DEFAULT, 'Brake pad replacement', '1HGCM82633A123456', 1),
+(DEFAULT, 'Battery replacement', '3FA6P0LU0HR123456', 5),
+(DEFAULT, 'Windshield replacement', '1FTFW1EF1EFA23456', 2),
+(DEFAULT, 'Engine diagnostic', '1C4RJFAG1FC123456', 3);
 
 SELECT * from LOCATIONS;
 SELECT * from USERS;
@@ -505,5 +506,3 @@ FROM vehicles v
 JOIN locations l ON l.location_id = v.location_id
 GROUP BY l.Lname, v.rental_status
 ORDER BY l.Lname, vehicle_count DESC;
-
-(2, 22000, 22550, '2025-06-10', '2025-06-15', '1FTFW1EF1EFA23456', 2, 2, 2, 2),

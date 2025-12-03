@@ -5,7 +5,7 @@ from crud.locations_crud import get_locations, get_location
 
 
 async def locations_list(request: Request):
-    async with database:
+    
         rows = await get_locations(0, 50)
         # Render a minimal HTML list
         items = "".join(f"<li>{r['Lname']} - {r['city']}</li>" for r in rows)
@@ -14,7 +14,7 @@ async def locations_list(request: Request):
 
 
 async def locations_detail(request: Request, location_id: int):
-    async with database:
+    
         l = await get_location(location_id)
         if not l:
             return HTMLResponse(status_code=404, content="Location not found")

@@ -66,7 +66,7 @@ class VehicleView(BaseModelView):
         # Fetch location name for display (similar to department_name in CourseView)
         location_name = obj.get("location_name")
         if not location_name and obj.get("location_id") is not None:
-            async with database:
+            
                 loc_query = "SELECT Lname FROM locations WHERE location_id = :id"
                 loc = await database.fetch_one(loc_query, values={"id": obj.get("location_id")})
                 location_name = loc["Lname"] if loc else "Unknown"
@@ -117,7 +117,7 @@ class VehicleView(BaseModelView):
 
         # Validate foreign key: location_id must exist in locations
         if data.get("location_id") is not None:
-            async with database:
+            
                 loc_exists = await database.fetch_val(
                     "SELECT COUNT(*) FROM locations WHERE location_id = :id",
                     values={"id": data.get("location_id")},
@@ -139,7 +139,7 @@ class VehicleView(BaseModelView):
         where: Optional[Any] = None,
         order_by: Optional[List[Any]] = None,
     ) -> List[Any]:
-        async with database:
+        
             if where and isinstance(where, (str, int)) and str(where).strip():
                 search_term = str(where).strip()
                 query = """
@@ -202,7 +202,7 @@ class VehicleView(BaseModelView):
     # COUNT TOTAL RECORDS
     # ==============================================================
     async def count(self, request: Request, where: Optional[Any] = None) -> int:
-        async with database:
+        
             if where and isinstance(where, (str, int)) and str(where).strip():
                 search_term = str(where).strip()
                 query = """
@@ -221,7 +221,7 @@ class VehicleView(BaseModelView):
     # FIND BY PRIMARY KEY
     # ==============================================================
     async def find_by_pk(self, request: Request, pk: Any) -> Optional[Any]:
-        async with database:
+        
             query = """
                 SELECT 
                     v.VIN,
@@ -250,7 +250,7 @@ class VehicleView(BaseModelView):
     # ==============================================================
     async def create(self, request: Request, data: dict) -> Any:
         await self.validate(request, data)
-        async with database:
+        
             query = """
                 INSERT INTO vehicles (
                     VIN,
@@ -291,7 +291,7 @@ class VehicleView(BaseModelView):
     # ==============================================================
     async def edit(self, request: Request, pk: Any, data: dict) -> Any:
         await self.validate(request, data)
-        async with database:
+        
             query = """
                 UPDATE vehicles
                 SET
@@ -321,7 +321,7 @@ class VehicleView(BaseModelView):
     async def delete(self, request: Request, pks: List[Any]) -> int:
         if not pks:
             return 0
-        async with database:
+        
             placeholders = ",".join(f":id{i}" for i in range(len(pks)))
             query = f"DELETE FROM vehicles WHERE VIN IN ({placeholders})"
             values = {f"id{i}": pk for i, pk in enumerate(pks)}

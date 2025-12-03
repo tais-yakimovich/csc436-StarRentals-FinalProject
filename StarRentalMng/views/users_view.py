@@ -131,7 +131,7 @@ class UserView(BaseModelView):
         where: Optional[Any] = None,
         order_by: Optional[List[Any]] = None,
     ) -> List[Any]:
-        async with database:
+        
             if where and isinstance(where, (str, int)) and str(where).strip():
                 search_term = str(where).strip()
                 query = """
@@ -195,7 +195,7 @@ class UserView(BaseModelView):
     # COUNT TOTAL RECORDS
     # ==============================================================
     async def count(self, request: Request, where: Optional[Any] = None) -> int:
-        async with database:
+        
             if where and isinstance(where, (str, int)) and str(where).strip():
                 search_term = str(where).strip()
                 query = """
@@ -213,7 +213,7 @@ class UserView(BaseModelView):
     # FIND BY PRIMARY KEY
     # ==============================================================
     async def find_by_pk(self, request: Request, pk: Any) -> Optional[Any]:
-        async with database:
+        
             query = """
                 SELECT 
                     user_id,
@@ -243,7 +243,7 @@ class UserView(BaseModelView):
     # ==============================================================
     async def create(self, request: Request, data: dict) -> Any:
         await self.validate(request, data)
-        async with database:
+        
             query = """
                 INSERT INTO users (
                     user_id,
@@ -291,7 +291,7 @@ class UserView(BaseModelView):
     # ==============================================================
     async def edit(self, request: Request, pk: Any, data: dict) -> Any:
         await self.validate(request, data)
-        async with database:
+        
             query = """
                 UPDATE users
                 SET 
@@ -323,7 +323,7 @@ class UserView(BaseModelView):
     async def delete(self, request: Request, pks: List[Any]) -> int:
         if not pks:
             return 0
-        async with database:
+        
             placeholders = ",".join(f":id{i}" for i in range(len(pks)))
             query = f"DELETE FROM users WHERE user_id IN ({placeholders})"
             values = {f"id{i}": pk for i, pk in enumerate(pks)}

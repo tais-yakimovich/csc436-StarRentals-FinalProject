@@ -8,14 +8,14 @@ router = APIRouter(prefix="/api/repairs", tags=["Repairs"])
 
 @router.get("/", response_model=list[Repairs])
 async def api_get_repairs(skip: int = 0, limit: int = 10):
-    async with database:
+    
         rows = await get_repairs(skip, limit)
         return [Repairs(**dict(r)) for r in rows]
 
 
 @router.get("/{repair_id}", response_model=Repairs)
 async def api_get_repair(repair_id: int):
-    async with database:
+    
         c = await get_repair(repair_id)
         if not c:
             raise HTTPException(404, "Repairs not found")
@@ -23,13 +23,13 @@ async def api_get_repair(repair_id: int):
 
 @router.get("/vin/{VIN}", response_model=list[RepairID])
 async def api_get_repairs_by_VIN(VIN: str):
-    async with database:
+    
         rows = await get_repair_ids_for_VIN(VIN)
         return [RepairID(**dict(r)) for r in rows]
 
 @router.post("/", response_model=Repairs)
 async def api_create_repair(repair: Repairs):
-    async with database:
+    
         try:
             code = await create_repair(repair.repair_id, repair.repair_description, repair.VIN, repair.location_id)
             return Repairs(**repair.dict())
@@ -39,7 +39,7 @@ async def api_create_repair(repair: Repairs):
 
 @router.put("/", response_model=Repairs)
 async def api_update_repair(repair: Repairs):
-    async with database:
+    
         try:
             await update_repair(repair.repair_id, repair.repair_description, repair.VIN, repair.location_id)
         except ValueError as err:
@@ -50,7 +50,7 @@ async def api_update_repair(repair: Repairs):
 
 @router.delete("/{course_code}")
 async def api_delete_repair(repair_id: int):
-    async with database:
+    
         deleted = await delete_repair(repair_id)
         if deleted == 0:
             raise HTTPException(404, "Repairs not found")

@@ -69,7 +69,7 @@ class CourseView(BaseModelView):
         # Fetch department name for display in list view
         department_name = obj.get("department_name")
         if not department_name and obj.get("department_code"):
-            async with database:
+            
                 dept_query = "SELECT department_name FROM Department WHERE department_code = :code"
                 dept = await database.fetch_one(dept_query, values={"code": obj.get("department_code")})
                 department_name = dept["department_name"] if dept else "Unknown"
@@ -101,7 +101,7 @@ class CourseView(BaseModelView):
 
         # Validate foreign key exists in parent table
         if data.get("department_code"):
-            async with database:
+            
                 dept_exists = await database.fetch_val(
                     "SELECT COUNT(*) FROM Department WHERE department_code = :code",
                     values={"code": data.get("department_code")}
@@ -128,7 +128,7 @@ class CourseView(BaseModelView):
 
         #LEFT JOIN: Includes courses even if department is missing (shows NULL)
 
-        async with database:
+        
             if where and isinstance(where, (str, int)) and str(where).strip():
                 search_term = str(where).strip()
                 query = """
@@ -160,7 +160,7 @@ class CourseView(BaseModelView):
     # COUNT TOTAL RECORDS
     # ===================================================================
     async def count(self, request: Request, where: Optional[Any] = None) -> int:
-        async with database:
+        
             if where and isinstance(where, (str, int)) and str(where).strip():
                 search_term = str(where).strip()
                 query = "SELECT COUNT(*) FROM Course WHERE course_title LIKE :search"
@@ -172,7 +172,7 @@ class CourseView(BaseModelView):
     # FIND BY PRIMARY KEY
     # ===================================================================
     async def find_by_pk(self, request: Request, pk: Any) -> Optional[Any]:
-        async with database:
+        
             return await get_course_with_department(pk)
 
     # ===================================================================
@@ -180,7 +180,7 @@ class CourseView(BaseModelView):
     # ===================================================================
     async def create(self, request: Request, data: dict) -> Any:
         await self.validate(request, data)
-        async with database:
+        
             code = await create_course(
                 data["course_code"],
                 data["course_title"],
@@ -193,7 +193,7 @@ class CourseView(BaseModelView):
     # ===================================================================
     async def edit(self, request: Request, pk: Any, data: dict) -> Any:
         await self.validate(request, data)
-        async with database:
+        
             updated = await update_course(
                 pk,
                 data["course_title"],
@@ -207,5 +207,5 @@ class CourseView(BaseModelView):
     # DELETE ONE OR MANY
     # ===================================================================
     async def delete(self, request: Request, pks: List[Any]) -> int:
-        async with database:
+        
             return await delete_courses(pks)

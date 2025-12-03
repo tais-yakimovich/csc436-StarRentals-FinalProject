@@ -15,14 +15,14 @@ router = APIRouter(prefix="/api/vehicles", tags=["Vehicles"])
 
 @router.get("/", response_model=list[Vehicle])
 async def api_get_vehicles(skip: int = 0, limit: int = 10):
-    async with database:
+    
         rows = await get_vehicles(skip, limit)
         return [Vehicle(**dict(r)) for r in rows]
 
 
 @router.get("/{vin}", response_model=Vehicle)
 async def api_get_vehicle(vin: str):
-    async with database:
+    
         v = await get_vehicle(vin)
         if not v:
             raise HTTPException(404, "Vehicle not found")
@@ -30,13 +30,13 @@ async def api_get_vehicle(vin: str):
 
 @router.get("/location/{location_id}", response_model=list[Vehicle])
 async def api_get_vehicles_at_location(location_id: int):
-    async with database:
+    
         rows = await get_vehicles_at_location(location_id)
         return [Vehicle(**dict(r)) for r in rows]
 
 @router.post("/", response_model=Vehicle)
 async def api_create_vehicle(vehicle: Vehicle):
-    async with database:
+    
         try:
             await create_vehicle(
                 vehicle.VIN,
@@ -60,7 +60,7 @@ async def api_create_vehicle(vehicle: Vehicle):
 
 @router.put("/", response_model=Vehicle)
 async def api_update_vehicle(vehicle: Vehicle):
-    async with database:
+    
         try:
             await update_vehicle(
                 vehicle.VIN,
@@ -85,7 +85,7 @@ async def api_update_vehicle(vehicle: Vehicle):
 
 @router.delete("/{vin}")
 async def api_delete_vehicle(vin: str):
-    async with database:
+    
         deleted = await delete_vehicle(vin)
         if deleted == 0:
             raise HTTPException(404, "Vehicle not found")

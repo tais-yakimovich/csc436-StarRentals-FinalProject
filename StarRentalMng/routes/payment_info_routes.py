@@ -15,14 +15,14 @@ router = APIRouter(prefix="/api/payment_info", tags=["PaymentInfo"])
 
 @router.get("/", response_model=list[PaymentInfo])
 async def api_get_payment_infos(skip: int = 0, limit: int = 10):
-    async with database:
+    
         rows = await get_payment_infos(skip, limit)
         return [PaymentInfo(**dict(r)) for r in rows]
 
 
 @router.get("/{payment_id}", response_model=PaymentInfo)
 async def api_get_payment_info(payment_id: int):
-    async with database:
+    
         p = await get_payment_info(payment_id)
         if not p:
             raise HTTPException(404, "Payment info not found")
@@ -30,14 +30,14 @@ async def api_get_payment_info(payment_id: int):
 
 @router.get("/user/{user_id}", response_model=list[PaymentID])
 async def api_get_payment_infos_by_user(user_id: int):
-    async with database:
+    
         rows = await get_payment_id_for_user(user_id)
         return [PaymentID(**dict(r)) for r in rows]
 
 
 @router.post("/", response_model=PaymentInfo)
 async def api_create_payment_info(payment_info: PaymentInfo):
-    async with database:
+    
         try:
             await create_payment_info(
                 payment_info.payment_id,
@@ -60,7 +60,7 @@ async def api_create_payment_info(payment_info: PaymentInfo):
 
 @router.delete("/{payment_id}")
 async def api_delete_payment_info(payment_id: int):
-    async with database:
+    
         deleted = await delete_payment_info(payment_id)
         if deleted == 0:
             raise HTTPException(404, "Payment info not found")
@@ -68,7 +68,7 @@ async def api_delete_payment_info(payment_id: int):
 
 @router.put("/", response_model=PaymentInfo)
 async def api_update_payment_info(payment_info: PaymentInfo):
-    async with database:
+    
         try:
             await update_payment_info(
                 payment_info.payment_id,

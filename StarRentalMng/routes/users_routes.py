@@ -15,13 +15,13 @@ router = APIRouter(prefix="/api/users", tags=["Users"])
 
 @router.get("/", response_model=list[User])
 async def api_get_users(skip: int = 0, limit: int = 10):
-    async with database:
+    
         rows = await get_users(skip, limit)
         return [User(**dict(r)) for r in rows]
 
 @router.get("/log_in", response_model=UserID)
 async def api_login(user_username, user_password):
-    async with database:
+    
         u = await user_login(user_username, user_password)
         if not u:
             raise HTTPException(404, "User not found")
@@ -29,7 +29,7 @@ async def api_login(user_username, user_password):
 
 @router.get("/{user_id}", response_model=User)
 async def api_get_user(user_id: int):
-    async with database:
+    
         u = await get_user(user_id)
         if not u:
             raise HTTPException(404, "User not found")
@@ -38,7 +38,7 @@ async def api_get_user(user_id: int):
 
 @router.post("/", response_model=User)
 async def api_create_user(user: User):
-    async with database:
+    
         try:
             await create_user(
                 user.user_id,
@@ -64,7 +64,7 @@ async def api_create_user(user: User):
 
 @router.put("/", response_model=User)
 async def api_update_user(user: User):
-    async with database:
+    
         try:
             await update_user(
                 user.user_id,
@@ -91,7 +91,7 @@ async def api_update_user(user: User):
 
 @router.delete("/{user_id}")
 async def api_delete_user(user_id: int):
-    async with database:
+    
         deleted = await delete_user(user_id)
         if deleted == 0:
             raise HTTPException(404, "User not found")

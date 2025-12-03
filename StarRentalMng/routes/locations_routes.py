@@ -14,14 +14,14 @@ router = APIRouter(prefix="/api/locations", tags=["Locations"])
 
 @router.get("/", response_model=list[Location])
 async def api_get_locations(skip: int = 0, limit: int = 10):
-    async with database:
+    
         rows = await get_locations(skip, limit)
         return [Location(**dict(r)) for r in rows]
 
 
 @router.get("/{location_id}", response_model=Location)
 async def api_get_location(location_id: int):
-    async with database:
+    
         l = await get_location(location_id)
         if not l:
             raise HTTPException(404, "Location not found")
@@ -30,7 +30,7 @@ async def api_get_location(location_id: int):
 
 @router.post("/", response_model=Location)
 async def api_create_location(location: Location):
-    async with database:
+    
         try:
             await create_location(
                 location.location_id,
@@ -51,7 +51,7 @@ async def api_create_location(location: Location):
 
 @router.delete("/{location_id}")
 async def api_delete_location(location_id: int):
-    async with database:
+    
         deleted = await delete_location(location_id)
         if deleted == 0:
             raise HTTPException(404, "Location not found")
@@ -61,7 +61,7 @@ from crud.locations_crud import update_location
 
 @router.put("/", response_model=Location)
 async def api_update_location(location: Location):
-    async with database:
+    
         try:
             await update_location(
                 location.location_id,

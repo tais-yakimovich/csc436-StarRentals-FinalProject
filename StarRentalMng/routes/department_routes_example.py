@@ -14,14 +14,14 @@ router = APIRouter(prefix="/api/departments", tags=["Departments"])
 
 @router.get("/", response_model=list[Department])
 async def api_get_departments(skip: int = 0, limit: int = 10):
-    async with database:
+    
         rows = await get_departments(skip, limit)
         return [Department(**dict(r)) for r in rows]
 
 # GET one: By department_code in URL path
 @router.get("/{department_code}", response_model=Department)
 async def api_get_department(department_code: int):
-    async with database:
+    
         d = await get_department(department_code)
         if not d:
             # HTTPException: Standard way to return error codes (404 = Not Found)
@@ -31,7 +31,7 @@ async def api_get_department(department_code: int):
 # POST: Create new
 @router.post("/", response_model=Department)
 async def api_create_department(dept: Department):
-    async with database:
+    
         try:
             code = await create_department(dept.department_code, dept.department_name)
             # Return full model (includes code user sent)
@@ -43,7 +43,7 @@ async def api_create_department(dept: Department):
 # PUT → update
 @router.put("/", response_model=Department)
 async def api_update_department(dept: Department):
-    async with database:
+    
         try:
             await update_department(dept.department_code, dept.department_name)
         except ValueError as err:
@@ -54,7 +54,7 @@ async def api_update_department(dept: Department):
 # DELETE → one
 @router.delete("/{department_code}")
 async def api_delete_department(department_code: int):
-    async with database:
+    
         deleted = await delete_department(department_code)
         if deleted == 0:
             raise HTTPException(404, "Department not found")

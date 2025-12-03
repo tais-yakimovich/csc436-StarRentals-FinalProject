@@ -7,7 +7,8 @@ from crud.vehicles_crud import (
     create_vehicle,
     update_vehicle,
     delete_vehicle,
-    get_vehicles_at_location
+    get_vehicles_at_location,
+    get_vehicles_at_locations_date_range
 )
 
 router = APIRouter(prefix="/api/vehicles", tags=["Vehicles"])
@@ -32,6 +33,12 @@ async def api_get_vehicle(vin: str):
 async def api_get_vehicles_at_location(location_id: int):
     
         rows = await get_vehicles_at_location(location_id)
+        return [Vehicle(**dict(r)) for r in rows]
+
+@router.get("/available/{location_id}", response_model=list[Vehicle])
+async def api_get_vehicles_at_locations_date_range(location_id: int, start_date: str, end_date: str):
+    
+        rows = await get_vehicles_at_locations_date_range(location_id, start_date, end_date)
         return [Vehicle(**dict(r)) for r in rows]
 
 @router.post("/", response_model=Vehicle)

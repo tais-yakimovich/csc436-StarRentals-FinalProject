@@ -100,6 +100,37 @@ async def get_vehicles_at_location(location_id: int) -> List[dict]:
     rows = await database.fetch_all(query=query, values={"location_id": location_id})
     return [dict(row) for row in rows]
 
+async def get_vehicles_at_locations_date_range(location_id: int, start_date: str, end_date: str) -> List[dict]:
+    query = """
+        SELECT 
+            v.VIN,
+            v.license_plate,
+            v.year,
+            v.make,
+            v.model,
+            v.body_style,
+            v.color,
+            v.miles,
+            v.rental_price,
+            v.location_id,
+            v.fuel_type,
+            v.rental_status,
+            v.photo_url
+        FROM vehicles v
+        WHERE v.location_id = :location_id
+        AND v.VIN NOT IN (
+            SELECT r.VIN
+            FROM rental_info r
+            WHERE (r.start_date <= :end_date AND r.return_date >= :start_date)
+        )
+    """
+    rows = await database.fetch_all(query=query, values={
+        "location_id": location_id,
+        "start_date": start_date,
+        "end_date": end_date
+    })
+    return [dict(row) for row in rows]
+
 # CREATE new vehicle
 async def create_vehicle(
     VIN: str,

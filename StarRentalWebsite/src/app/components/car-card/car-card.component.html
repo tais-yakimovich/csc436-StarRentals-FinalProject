@@ -1,7 +1,7 @@
-<app-date-range></app-date-range>
+<app-date-range (search)="onSearch($event)"></app-date-range>
 <div *ngFor="let vehicle of vehicles; trackBy: trackByVIN">
   <!-- Only show the card if the vehicle is available -->
-  <div *ngIf="vehicle.rental_status === 'Available'" class="container">
+  <div  class="container">
     <div class="image">
       <img [src]="vehicle.photo_url || 'default_image.png'" class="w-24 h-24 object-cover rounded" width="200" height="150" />
     </div>
@@ -22,5 +22,5 @@
 </div>
 
 @if (isReserveDialogVisible) {
-<app-reserve-car [carData]="selectedCar" ></app-reserve-car>
+  <app-reserve-car [carData]="selectedCar"></app-reserve-car>
 }

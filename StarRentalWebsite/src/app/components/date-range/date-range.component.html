@@ -3,10 +3,10 @@
         <p-iconfield>
             <p-inputicon class="pi pi-map-marker" />
             <p-select
-                [options]="cities"
+                [options]="locations"
                 [(ngModel)]="selected_pick_up"
                 [editable]="true"
-                optionLabel="name"
+                optionLabel="Lname"
                 class="w-full md:w-56"
             ></p-select>
         </p-iconfield>
@@ -16,10 +16,10 @@
         <p-iconfield>
             <p-inputicon class="pi pi-map-marker" />
             <p-select
-                [options]="cities"
+                [options]="locations"
                 [(ngModel)]="selected_drop_off"
                 [editable]="true"
-                optionLabel="name"
+                optionLabel="Lname"
                 class="w-full md:w-56"
             ></p-select>
             <label for="over_label">Drop-off</label>
@@ -61,5 +61,5 @@
             <label for="over_label">Date Range</label>
         </p-iconfield>
     </p-floatlabel>
-    <p-button>Search</p-button>
+    <p-button (click)="onSearch()">Search</p-button>
 </div>

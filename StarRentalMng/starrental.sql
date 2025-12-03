@@ -505,3 +505,5 @@ FROM vehicles v
 JOIN locations l ON l.location_id = v.location_id
 GROUP BY l.Lname, v.rental_status
 ORDER BY l.Lname, vehicle_count DESC;
+
+(2, 22000, 22550, '2025-06-10', '2025-06-15', '1FTFW1EF1EFA23456', 2, 2, 2, 2),

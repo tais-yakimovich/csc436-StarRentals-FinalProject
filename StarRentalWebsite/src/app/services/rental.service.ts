@@ -12,7 +12,8 @@ export class RentalService {
 
   getRental(): Observable<RentOuts[]> {
       return this.http.get<RentOuts[]>(this.apiUrl);
-    }
+  }
+  
   
   addRental(car: RentOuts): Observable<RentOuts> {
   return this.http.post<RentOuts>(`http://127.0.0.1:8007/api/rental_info/`, car); 
@@ -29,5 +30,9 @@ export class RentalService {
   // Fetch a specific vehicle by VIN
   locateRental(rental_id: number): Observable<RentOuts> {
     return this.http.get<RentOuts>(`http://127.0.0.1:8007/api/rental_info/${rental_id}`);
+  }
+
+  getUserRentals(userId: number): Observable<RentOuts[]> {
+    return this.http.get<RentOuts[]>(`http://127.0.0.1:8007/api/rental_info/user/${userId}`);
   }
 }

@@ -1,3 +1,4 @@
+<app-date-range></app-date-range>
 <div *ngFor="let vehicle of vehicles; trackBy: trackByVIN">
   <!-- Only show the card if the vehicle is available -->
   <div *ngIf="vehicle.rental_status === 'Available'" class="container">
@@ -21,5 +22,5 @@
 </div>
 
 @if (isReserveDialogVisible) {
-<app-reserve-car [carData]="selectedCar" (closeDialog)="closeReserveDialog()"></app-reserve-car>
+<app-reserve-car [carData]="selectedCar" ></app-reserve-car>
 }

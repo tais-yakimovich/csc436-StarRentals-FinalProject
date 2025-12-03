@@ -13,6 +13,7 @@ export class VehicleServiceService {
   getVehicles(): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(this.apiUrl);
   }
+  
 
   addCar(car: Vehicle): Observable<Vehicle> {
     return this.http.post<Vehicle>(`http://127.0.0.1:8007/api/vehicles/`, car); 
@@ -22,9 +23,16 @@ export class VehicleServiceService {
     return this.http.delete(`http://127.0.0.1:8007/api/vehicles/${vin}`);
   }
 
+  // Update a vehicle
+  updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
+    return this.http.put<Vehicle>(`http://127.0.0.1:8007/api/vehicles/`, vehicle);
+  }
   // Fetch a specific vehicle by VIN
   locateCar(vin: string): Observable<Vehicle> {
     return this.http.get<Vehicle>(`http://127.0.0.1:8007/api/vehicles/${vin}`);
+  }
+  getVehiclesAtLocation(locationId: number): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(`http://127.0.0.1:8007/api/vehicles/location/${locationId}`);
   }
 
 }

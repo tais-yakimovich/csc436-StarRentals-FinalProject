@@ -11,6 +11,8 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/users';
 @Component({
   selector: 'app-rental-return-card',
   imports: [ Button, [CommonModule], TableModule, InputTextModule, FormsModule, FloatLabel],
@@ -23,12 +25,13 @@ export class RentalReturnCardComponent {
   locatedCar: Vehicle | null = null;  
   pickupLocation: Location | null = null; // Store the pickup location details
   dropoffLocation: Location | null = null; // Store the dropoff location details
-
+  loggedInUser: User | null = null;
   
   constructor(
     private vehicleServiceService: VehicleServiceService,
     private locationService: LocationService,
-    private rentalService: RentalService
+    private rentalService: RentalService,
+    private userService: UserService
   ) {}
 
 
@@ -46,32 +49,55 @@ export class RentalReturnCardComponent {
 
 
   ngOnInit(): void {
+    this.userService.loggedInUser$.subscribe((user) => {
+      this.loggedInUser = user;
+    });
     this.locateRental();
   }
 
   locateRental(): void {
-    this.rentalService.locateRental(0).subscribe(
-      (rentalResponse) => {
-        this.locatedRental = rentalResponse; // Store the located rental details
-
-        if (this.locatedRental && this.locatedRental.VIN) {
-          // Fetch the car details using the VIN from the located rental
-          this.vehicleServiceService.locateCar(this.locatedRental.VIN).subscribe(
-            (carResponse) => {
-              this.locatedCar = carResponse; // Store the located car details
-              console.log('Located Car:', this.locatedCar);
-            },
-            (carError) => {
-              console.error('Error locating car by VIN:', carError);
-            }
-          );
-        }
-      },
-      (rentalError) => {
-        console.error('Error locating rental:', rentalError);
-      }
-    );
+  if (!this.loggedInUser || !this.loggedInUser.user_id) {
+    console.error('User is not logged in or user ID is missing.');
+    return;
   }
+
+  // Step 1: Fetch the list of rentals for the logged-in user
+  this.rentalService.getUserRentals(this.loggedInUser.user_id).subscribe(
+    (rentals) => {
+      if (rentals.length === 0) {
+        console.log('No rentals found for the user.');
+        return;
+      }
+
+      // Step 2: Use the first rental (or any specific rental) to fetch detailed data
+      const firstRental = rentals[0]; // Assuming you want the first rental
+      this.rentalService.locateRental(firstRental.rental_id).subscribe(
+        (rentalResponse) => {
+          this.locatedRental = rentalResponse; // Store the detailed rental data
+
+          if (this.locatedRental && this.locatedRental.VIN) {
+            // Step 3: Fetch the car details using the VIN
+            this.vehicleServiceService.locateCar(this.locatedRental.VIN).subscribe(
+              (carResponse) => {
+                this.locatedCar = carResponse; // Store the car details
+                console.log('Located Car:', this.locatedCar);
+              },
+              (carError) => {
+                console.error('Error locating car by VIN:', carError);
+              }
+            );
+          }
+        },
+        (rentalError) => {
+          console.error('Error locating rental:', rentalError);
+        }
+      );
+    },
+    (error) => {
+      console.error('Error fetching user rentals:', error);
+    }
+  );
+}
 
   // Reserve the car
   returnCar(): void {
@@ -96,7 +122,7 @@ export class RentalReturnCardComponent {
       payment_id: this.locatedRental.payment_id,
     };
 
-    
+
       // Call the addRental() method to create the rent-out
     this.rentalService.updateRental(rentOut).subscribe(
       (response) => {
@@ -106,6 +132,38 @@ export class RentalReturnCardComponent {
       (error) => {
         console.error('Error reserving car:', error);
         alert('Failed to complete drop off car, please check info');
+      }
+    );
+    }
+    this.updateCar();
+  }
+
+  updateCar(): void {
+    if (this.locatedRental && this.locatedCar) {
+    const updateCar: Vehicle = {
+      VIN: this.locatedRental.VIN,
+      license_plate: this.locatedCar.license_plate,
+      year: this.locatedCar.year!,
+      make: this.locatedCar.make,
+      model: this.locatedCar.model,
+      body_style: this.locatedCar.body_style,
+      color: this.locatedCar.color,
+      miles: this.return_mileage!,
+      rental_price: this.locatedCar.rental_price!,
+      location_id: this.locatedRental.dropoff_location_id!,
+      fuel_type: this.locatedCar.fuel_type,
+      rental_status: this.locatedCar.rental_status,
+      photo_url: this.locatedCar.photo_url,
+      location: undefined
+    
+    };
+
+    this.vehicleServiceService.updateVehicle(updateCar).subscribe(
+      (response) => {
+        console.log('Car added successfully:', response);
+      },
+      (error) => {
+        console.error('Error adding car:', error);
       }
     );
     }

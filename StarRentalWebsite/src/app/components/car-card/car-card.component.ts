@@ -8,9 +8,10 @@ import { Location } from '../../models/location';
 import { LocationService } from '../../services/location.service';
 import { DialogModule } from 'primeng/dialog';
 import { ReserveCarComponent } from '../reserve-car/reserve-car.component';
+import { DateRangeComponent } from '../date-range/date-range.component';
 @Component({
   selector: 'app-car-card',
-  imports: [ButtonModule, DataViewModule, [CommonModule], DialogModule, ReserveCarComponent],
+  imports: [ButtonModule, DataViewModule, [CommonModule], DialogModule, ReserveCarComponent, DateRangeComponent],
   templateUrl: './car-card.component.html',
   styleUrl: './car-card.component.scss',
 })

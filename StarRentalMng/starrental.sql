@@ -76,7 +76,7 @@ CREATE TABLE vehicles (
     location_id BIGINT UNSIGNED,
     fuel_type VARCHAR(50),
     rental_status VARCHAR(50),
-    photo_url VARCHAR(256) NOT NULL
+    photo_url VARCHAR(512) NOT NULL
 );
 
 -- 5. RENTAL_INFO
@@ -193,7 +193,18 @@ INSERT INTO vehicles VALUES
 ('1FTFW1EF1EFA23456', 'RI5678', 2021, 'Ford', 'F-150', 'Truck', 'Red', 22000, 59.99, 2, 'Gasoline', 'Rented', 'https://www.repairerdrivennews.com/wp-content/uploads/2020/06/2021-f-150-lariat-scaled.jpg'),
 ('1C4RJFAG1FC123456', 'RI9012', 2022, 'Jeep', 'Grand Cherokee', 'SUV', 'Black', 15000, 69.99, 3, 'Gasoline', 'Available', 'https://static.overfuel.com/photos/795/328955/e5959fb4d37442beaf9e4e19f209fa76.webp'),
 ('5NPE24AF7FH123456', 'RI3456', 2019, 'Hyundai', 'Sonata', 'Sedan', 'White', 40000, 44.99, 4, 'Gasoline', 'Maintenance', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6x-HmJV9Sd_m8U_Ol6-dnAZEEN9Dg1tTuAw&s'),
-('3FA6P0LU0HR123456', 'MA7890', 2023, 'Tesla', 'Model 3', 'Sedan', 'Silver', 10000, 89.99, 5, 'Electric', 'Available', 'https://images.dealersync.com/3/Photos/1199920/20241012055642264_IMG_4397.jpg?_=bdc11c681b1ee181f191d4a58d94e731ab8c4f36');
+('3FA6P0LU0HR123456', 'MA7890', 2023, 'Tesla', 'Model 3', 'Sedan', 'Silver', 10000, 89.99, 5, 'Electric', 'Available', 'https://images.dealersync.com/3/Photos/1199920/20241012055642264_IMG_4397.jpg?_=bdc11c681b1ee181f191d4a58d94e731ab8c4f36'),
+('1G1ZD5ST5LF123457', 'RI1122', 2020, 'Chevrolet', 'Malibu', 'Sedan', 'Gray', 28000, 45.99, 6, 'Gasoline', 'Available', 'https://hips.hearstapps.com/hmg-prod/images/2019-chevrolet-malibu-rs-117-1568289288.jpg?crop=0.758xw:0.696xh;0.125xw,0.188xh&resize=2048:*'),
+('2T3ZFREV4FW123458', 'RI2233', 2021, 'Toyota', 'RAV4', 'SUV', 'Blue', 18000, 64.99, 1, 'Gasoline', 'Rented', 'https://file.kelleybluebookimages.com/kbb/base/evox/CP/13369/2020-Toyota-RAV4-front_13369_032_1834x906_8W9_cropped.png'),
+('1N4BL4BV3LC123459', 'RI3344', 2022, 'Nissan', 'Altima', 'Sedan', 'Black', 12000, 47.99, 2, 'Gasoline', 'Available', 'https://upload.wikimedia.org/wikipedia/commons/5/59/2024_Nissan_Altima_SR%2C_front_left%2C_05-05-2025.jpg'),
+('5YJ3E1EA5KF123460', 'RI4455', 2023, 'Tesla', 'Model Y', 'SUV', 'White', 8000, 94.99, 3, 'Electric', 'Available', 'https://upload.wikimedia.org/wikipedia/commons/5/5e/2023_Tesla_Model_Y_Long_Range_All-Wheel_Drive_in_Pearl_White_Multi-Coat%2C_front_right%2C_2024-09-25.jpg'),
+('1C6RR7FG1KS123461', 'RI5566', 2019, 'Ram', '1500', 'Truck', 'Red', 35000, 69.99, 4, 'Gasoline', 'Maintenance', 'https://www.ramtrucks.com/mediaserver/iris?COSY-EU-100-1713uLDEMTV1r9s%25WBXaBKFmfKSLC9gIQALMc6UhVk6GBfM9IW2VRkr72kVsd9poKwXGXQpMTV1rUh4g6OQCckPquBhS1U%25jzbTllxA0kdIlnaQFmwpEkpd2LYBoM4ljVm7yT8ZuV3jf7wg68ZprPxHTHsS1s8PJ&&pov=fronthero&width=860&height=484&bkgnd=white&resp=jpg&cut='),
+('3KPF24AD3KE123462', 'RI6677', 2020, 'Kia', 'Forte', 'Sedan', 'Silver', 25000, 39.99, 5, 'Gasoline', 'Available', 'https://hips.hearstapps.com/hmg-prod/images/2022-kia-forte-gt-104-1633972551.jpg?crop=0.814xw:0.688xh;0.0401xw,0.127xh&resize=2048:*'),
+('1FM5K8D87LGA23463', 'RI7788', 2021, 'Ford', 'Explorer', 'SUV', 'Black', 22000, 72.99, 6, 'Gasoline', 'Rented', 'https://www.ford.com/acslibs/content/dam/na/ford/en_us/images/explorer/2026/jellybeans/26my_frd_epr_actv_ps34_wrk.webp'),
+('JM3KFBDM6M0123464', 'RI8899', 2022, 'Mazda', 'CX-5', 'SUV', 'Red', 14000, 68.99, 1, 'Gasoline', 'Available', 'https://www.topgear.com/sites/default/files/cars-car/image/2021/02/cx-5-skyactiv-g-awd-gt-sport-auto-action-3.jpg'),
+('WAUFMAF45KN123465', 'RI9900', 2020, 'Audi', 'A6', 'Sedan', 'White', 30000, 109.99, 2, 'Gasoline', 'Available', 'https://hips.hearstapps.com/hmg-prod/images/2020-audi-a6-mmp-1-1567713400.jpg?crop=1.00xw:0.846xh;0,0.135xh&resize=1200:*'),
+('WBA5A7C52FG123466', 'RI1010', 2019, 'BMW', '528i', 'Sedan', 'Gray', 42000, 119.99, 3, 'Gasoline', 'Rented', 'https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/images/11q4/424156/2012-bmw-528i-first-drive-review-car-and-driver-photo-424740-s-original.jpg?fill=1:1&resize=1200:*');
+
 
 -- 5. RENTAL_INFO
 INSERT INTO rental_info VALUES

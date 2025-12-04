@@ -13,5 +13,11 @@ import { VehicleServiceService } from '../../services/vehicle-service.service';
   styleUrl: './car-page.component.scss',
 })
 export class CarPageComponent {
-  
+  selectedFilters: any = null; // Holds the filters applied by the user
+
+  // Method to handle the filters emitted by CarfilterComponent
+  onFiltersApplied(filters: any): void {
+    this.selectedFilters = filters;
+    console.log('Filters Applied in CarPageComponent:', this.selectedFilters);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, SimpleChanges} from '@angular/core';
 import { Button, ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,8 @@ import { ReserveCarComponent } from '../reserve-car/reserve-car.component';
 import { DateRangeComponent } from '../date-range/date-range.component';
 import { LocationService } from '../../services/location.service';
 import { Location } from '../../models/location';
+import { FilterService } from '../../services/filter.service';
+
 @Component({
   selector: 'app-car-card',
   imports: [ButtonModule, DataViewModule, [CommonModule], DialogModule, ReserveCarComponent, DateRangeComponent],
@@ -16,11 +18,13 @@ import { Location } from '../../models/location';
   styleUrl: './car-card.component.scss',
 })
 export class CarCardComponent implements OnInit{
+  @Input() filters: any;
   vehicles: Vehicle[] = []; // Array to store vehicle data
   selectedPickUpLocationId: number | null = null; // Variable to store pick-up location ID
   selectedDropOffLocationId: number | null = null; // Variable to store drop-off location ID
   selectedCar: any = null; // Stores the selected car data
   @Input() dates: Date[] = []; // The selected drop-off location
+  selectedFilters: any = null;
 
   isReserveDialogVisible: boolean = false;
   locations: Location[] = [];
@@ -141,5 +145,54 @@ export class CarCardComponent implements OnInit{
   trackByVIN(index: number, vehicle: Vehicle): string {
     return vehicle.VIN; // Use VIN as a unique identifier
   }
+  // Handle the filters emitted by CarfilterComponent
+  onFiltersApplied(filters: any): void {
+    this.selectedFilters = filters;
+    console.log('Filters Applied:', this.selectedFilters);
 
+    // Fetch vehicles based on the selected filters
+    this.vehicleServiceService
+      .getAvailableCars(
+        filters.locations,
+        '2025-12-01', // Example start date
+        '2025-12-10', // Example end date
+        filters.bodyStyles,
+        null, // No price filter
+        filters.fuelTypes
+      )
+      .subscribe(
+        (vehicles: Vehicle[]) => {
+          this.vehicles = vehicles;
+          console.log('Filtered Vehicles:', this.vehicles);
+        },
+        (error) => {
+          console.error('Error fetching filtered vehicles:', error);
+        }
+      );
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filters'] && this.filters) {
+      console.log('Filters received in CarCardComponent:', this.filters);
+
+      // Fetch vehicles based on the selected filters
+      this.vehicleServiceService
+        .getAvailableCars(
+          this.filters.locations,
+          '2025-12-01', // Example start date
+          '2025-12-10', // Example end date
+          this.filters.bodyStyles,
+          null, // No price filter
+          this.filters.fuelTypes
+        )
+        .subscribe(
+          (vehicles: Vehicle[]) => {
+            this.vehicles = vehicles;
+            console.log('Filtered Vehicles:', this.vehicles);
+          },
+          (error) => {
+            console.error('Error fetching filtered vehicles:', error);
+          }
+        );
+    }
+  }
 }

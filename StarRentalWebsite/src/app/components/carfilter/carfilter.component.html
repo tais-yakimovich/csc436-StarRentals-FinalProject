@@ -25,7 +25,8 @@
     <p-accordion-panel value="2">
         <p-accordion-header>Location</p-accordion-header>
         <p-accordion-content>
-            <div *ngFor="let type of locations" class="checkbox-item">
+            @for (let location of filters.location_id)
+            <div class="checkbox-item">
                     <p-checkbox 
                         [(ngModel)]="selectedLocation" 
                         [value]="type.value">

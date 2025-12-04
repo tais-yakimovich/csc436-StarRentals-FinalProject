@@ -9,9 +9,12 @@ import { RentalService } from '../../services/rental.service';
 import { PaymentInfo } from '../../models/payment-info';
 import { PaymentService } from '../../services/payment.service';
 import { ToastModule } from 'primeng/toast';
+import { FloatLabel } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-reserve-car',
-  imports: [Button, DialogModule, RouterLink, ToastModule],
+  imports: [Button, DialogModule, RouterLink, ToastModule, FloatLabel, InputTextModule, FormsModule],
   templateUrl: './reserve-car.component.html',
   styleUrl: './reserve-car.component.scss',
 })
@@ -23,7 +26,6 @@ export class ReserveCarComponent {
   @Input() dates: Date[] = []; // The selected drop-off location
   visible: boolean = true; // Controls the visibility of the dialog
   paymentInfo: PaymentInfo | null = null; // Stores the user's payment info
-
   loggedInUser: User | null = null;
 
   constructor(
@@ -32,6 +34,47 @@ export class ReserveCarComponent {
     private paymentService: PaymentService
   ) {}
 
+  // Payment information variables
+  payment_id: number = 0;
+  cardholder_name: string = '';
+  card_number: string = '';
+  exp_month: number | null = null;
+  exp_year: number | null = null;
+  cvv: string = '';
+  billing_address: string = '';
+  city: string = '';
+  state: string = '';
+  zip_code: string = '';
+  country: string = '';
+  user_id: number | null = null;
+
+  addCard(): void {
+      const newCard: PaymentInfo = {
+        payment_id: 0,
+        cardholder_name: this.cardholder_name,
+        card_number: this.card_number,
+        exp_month: this.exp_month!,
+        exp_year: this.exp_year!,
+        cvv: this.cvv,
+        billing_address: this.billing_address,
+        city: this.city,
+        state: this.state,
+        zip_code: this.zip_code,
+        country: this.country,
+        user_id: this.user_id!
+      };
+  
+      this.paymentService.createPaymentInfo(newCard).subscribe(
+        (response) => {
+          console.log('Payment added successfully:', response);
+          alert('Payment added successfully!');
+        },
+        (error) => {
+          console.error('Error adding card:', error);
+          alert('Failed to add card. Please try again.');
+        }
+      );
+    }
 
   ngOnInit(): void {
     // Subscribe to the logged-in user observable

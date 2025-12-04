@@ -2,6 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vehicle } from '../models/vehicle';
+
+export interface VehicleFilters {
+  body_style: string[];
+  location_id: number[];
+  fuel_type: string[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,23 +31,23 @@ export class VehicleServiceService {
   }
 
   getAvailableCars(
-    locationIds: number[] = [],
-    startDate: string = "9999-12-31",
-    endDate: string = "0000-01-01",
-    bodyStyles: string[] = [],
-    priceMax: number = Number.MAX_SAFE_INTEGER,
-    fuelTypes: string[] = []
+    locationIds: number[],
+    startDate: string,
+    endDate: string,
+    bodyStyles: string[] | null = null,
+    priceMax: number | null = null,
+    fuelTypes: string[] | null = null
   ): Observable<Vehicle[]> {
-    const params = {
-      location_id: locationIds.join(','), // Convert array to comma-separated string
-      start_date: startDate,
-      end_date: endDate,
-      body_style: bodyStyles.join(','), // Convert array to comma-separated string
-      price_max: priceMax.toString(),
-      fuel_type: fuelTypes.join(','), // Convert array to comma-separated string
-    };
+    const params = new URLSearchParams();
 
-    const queryString = new URLSearchParams(params).toString();
+    if (locationIds) locationIds.forEach(id => params.append('location_id', id.toString()));
+    if (startDate) params.append('start_date', startDate);
+    if (endDate) params.append('end_date', endDate);
+    if (bodyStyles) bodyStyles.forEach(style => params.append('body_style', style));
+    if (priceMax !== null) params.append('price_max', priceMax.toString());
+    if (fuelTypes) fuelTypes.forEach(fuel => params.append('fuel_type', fuel));
+    
+    const queryString = params.toString();
     const url = `http://127.0.0.1:8007/api/vehicles/available/filter?${queryString}`;
     return this.http.get<Vehicle[]>(url);
   }
@@ -55,6 +62,11 @@ export class VehicleServiceService {
   }
   getVehiclesAtLocation(locationId: number): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(`http://127.0.0.1:8007/api/vehicles/location/${locationId}`);
+  }
+
+  getFilters(): Observable<VehicleFilters> {
+    const url = `http://127.0.0.1:8007/api/vehicles/available/filters`;
+    return this.http.get<VehicleFilters>(url);
   }
 
 }

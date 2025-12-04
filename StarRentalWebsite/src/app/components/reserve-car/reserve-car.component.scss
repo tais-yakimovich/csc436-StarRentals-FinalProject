@@ -26,3 +26,11 @@
 #card-box{
     flex-direction: row;
 }
+.pay-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px; 
+    flex-wrap: wrap;
+}

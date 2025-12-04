@@ -61,26 +61,36 @@ export class CarCardComponent implements OnInit{
   }
  
   fetchVehiclesForPickUpLocation(dates: Date[]): void {
-  if (this.selectedPickUpLocationId !== null) {
-    // Parse the dates into the desired format (YYYY-MM-DD)
-    const startDate = this.dates[0] instanceof Date ? this.dates[0].toISOString().slice(0, 10) : null;
-    const returnDate = this.dates[1] instanceof Date ? this.dates[1].toISOString().slice(0, 10) : null;
+    if (!dates || dates.length < 2) {
+      console.error('Invalid dates provided:', dates);
+      return;
+    }
 
-    this.vehicleServiceService.getAvailableCars([this.selectedPickUpLocationId], startDate!, returnDate!).subscribe(
-      (vehicles: Vehicle[]) => {
-        this.vehicles = vehicles.map((vehicle) => {
-          const location = this.locations.find(
-            (loc) => loc.location_id === vehicle.location_id
-          );
-          return { ...vehicle, location }; // Add location data to the vehicle
-        });
-        console.log('Vehicles fetched for pick-up location:', this.vehicles);
-      },
-      (error) => {
-        console.error('Error fetching vehicles:', error);
+    if (this.selectedPickUpLocationId !== null) {
+      // Parse the dates into the desired format (YYYY-MM-DD)
+      const startDate = dates[0] instanceof Date ? dates[0].toISOString().slice(0, 10) : null;
+      const returnDate = dates[1] instanceof Date ? dates[1].toISOString().slice(0, 10) : null;
+
+      if (!startDate || !returnDate) {
+        console.error('Invalid start or return date:', { startDate, returnDate });
+        return;
       }
-    );
-  }
+
+      this.vehicleServiceService.getAvailableCars([this.selectedPickUpLocationId], startDate, returnDate, ).subscribe(
+        (vehicles: Vehicle[]) => {
+          this.vehicles = vehicles.map((vehicle) => {
+            const location = this.locations.find(
+              (loc) => loc.location_id === vehicle.location_id
+            );
+            return { ...vehicle, location }; // Add location data to the vehicle
+          });
+          console.log('Vehicles fetched for pick-up location:', this.vehicles);
+        },
+        (error) => {
+          console.error('Error fetching vehicles:', error);
+        }
+      );
+    }
 }
 
   // Handle drop-off location selection
@@ -95,6 +105,12 @@ export class CarCardComponent implements OnInit{
 
     const { pickUp, dropOff, dates } = event;
 
+    if (dates.length > 0) {
+      this.dates = dates;
+      console.log('Selected Date Range:', dates);
+
+      // Perform actions based on the selected date range
+    }
     if (pickUp) {
       this.selectedPickUpLocationId = pickUp;
       this.fetchVehiclesForPickUpLocation(dates);
@@ -105,12 +121,7 @@ export class CarCardComponent implements OnInit{
       console.log('Drop-Off Location ID:', this.selectedDropOffLocationId);
     }
 
-    if (dates.length > 0) {
-      this.dates = dates;
-      console.log('Selected Date Range:', dates);
-
-      // Perform actions based on the selected date range
-    }
+    
   }
 
   // Open the reserve dialog and pass the car data

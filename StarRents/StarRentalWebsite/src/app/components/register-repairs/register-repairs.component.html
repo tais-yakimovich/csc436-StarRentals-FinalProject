@@ -1,0 +1,72 @@
+
+<div class="container">
+    <p-accordion value="1">
+    <h2>Repair Info</h2>
+    <p-accordion-panel value="0">
+    <p-accordion-header>Repair Info</p-accordion-header>
+    <p-accordion-content>
+        <div class="input-box">
+            <p-table [value]="repairs" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                <tr>
+                    <th>Repair ID</th>
+                    <th>Repair Description</th>
+                    <th>VIN</th>
+                    <th>Location ID</th>
+                </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-repair>
+                <tr>
+                    <td>{{ repair.repair_id }}</td>
+                    <td>{{ repair.repair_description }}</td>
+                    <td>{{ repair.VIN }}</td>
+                    <td>{{ repair.location_id }}</td>
+                </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="1">
+  <p-accordion-header>Add New Repairs</p-accordion-header>
+  <p-accordion-content>
+    <p>Insert values to add a new repairs</p>
+    <div class="input-box">
+      <p-floatlabel variant="on">
+        <input pInputText id="repair_id" [(ngModel)]="repair_id" autocomplete="off" />
+        <label for="repair_id">Repair ID</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="repair_description" [(ngModel)]="repair_description" autocomplete="off" />
+        <label for="repair_description">Repair Description</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="VIN" [(ngModel)]="VIN" autocomplete="off" />
+        <label for="VIN">VIN</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on">
+        <input pInputText id="location_id" [(ngModel)]="location_id" autocomplete="off" />
+        <label for="location_id">Location ID</label>
+      </p-floatlabel>
+    </div>
+    <p-button label="Add Repair" (click)="addRepairs()"></p-button>
+  </p-accordion-content>
+</p-accordion-panel>
+
+    <p-accordion-panel value="2">
+        <p-accordion-header>Delete Repair</p-accordion-header>
+        <p-accordion-content>
+            <p>Insert Repair ID to delete location</p>
+            <div class="input-box">
+                <p-floatlabel variant="on">
+                    <input pInputText id="on_label" [(ngModel)]="location_id" autocomplete="off" />
+                    <label for="on_label">Repair ID</label>
+                </p-floatlabel>
+            </div>
+            <p-button label="Delete Location" (click)="deleteRepair()"></p-button>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    </p-accordion>
+</div>

@@ -1,0 +1,21 @@
+<div class="header">
+    <div class="buttonBox">
+        <h1> {{ title() }} </h1>
+        <button class="car-button" routerLink=''>Car Rental Store Page</button>
+        @if (loggedInUser) {
+            <button class="car-button" routerLink='rental-returns'>My Rentals</button>
+        }
+        <button class="car-button" routerLink='register-info'>Register Info</button>
+        <button class="car-button" routerLink='car-database'>Car Database</button>
+    </div>
+    <div class="userBox">
+        @if (!loggedInUser){
+        <p-button routerLink="/login">Sign in</p-button>
+        }
+        @if (loggedInUser){
+            <button class="car-button" routerLink='login' (click)="logOut()">Sign Out</button>
+            <h2>Welcome, {{ loggedInUser.username }}!</h2>
+            
+        }
+    </div>
+</div>

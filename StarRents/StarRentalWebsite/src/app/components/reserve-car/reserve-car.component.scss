@@ -1,0 +1,36 @@
+
+
+.reserve-box {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80vh;
+    height: 70vh;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid rgb(180, 180, 180);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1010; /* Ensure it appears above the semi-transparent background */
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#card-box{
+    flex-direction: row;
+}
+.pay-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px; 
+    flex-wrap: wrap;
+}

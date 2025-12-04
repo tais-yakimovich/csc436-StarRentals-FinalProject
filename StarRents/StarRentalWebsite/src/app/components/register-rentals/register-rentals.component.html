@@ -1,0 +1,50 @@
+<div class="container">
+    <p-accordion value="1">
+    <h2>Rental Info</h2>    
+    
+    <p-accordion-panel value="1">
+        <p-accordion-header>Locate Rental</p-accordion-header>
+        <p-accordion-content>
+            <p>Insert rental ID to locate rental</p>
+            <div class="input-box">
+            <p-floatlabel variant="on">
+                <input pInputText id="vin" [(ngModel)]="rental_id" autocomplete="off" />
+                <label for="vin">VIN</label>
+            </p-floatlabel>
+            </div>
+                <p-button label="Locate Car" (click)="locateRental()"></p-button>
+                <!-- Display located car details -->
+                @if (locatedRental) {
+                <div class="located-car">
+                <h3>Car Details:</h3>
+                <p><strong>Rental ID:</strong> {{ locatedRental.rental_id }}</p>
+                <p><strong>VIN:</strong> {{ locatedRental.VIN }}</p>
+                <p><strong>Start Mileage:</strong> {{ locatedRental.start_mileage }}</p>
+                <p><strong>Return Mileage:</strong> {{ locatedRental.return_mileage }}</p>
+                <p><strong>Start Date:</strong> {{ locatedRental.start_date }}</p>
+                <p><strong>Return Date:</strong> {{ locatedRental.return_date }}</p>
+                <p><strong>User ID:</strong> {{ locatedRental.user_id }}</p>
+                <p><strong>Pick Up Location ID:</strong> {{ locatedRental.pickup_location_id }}</p>
+                <p><strong>Drop Off Location ID:</strong> {{ locatedRental.dropoff_location_id }}</p>
+                <p><strong>Payment ID:</strong> {{ locatedRental.payment_id }}</p>
+            </div>
+            }
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="2">
+        <p-accordion-header>Delete Rental</p-accordion-header>
+        <p-accordion-content>
+            <p>Insert Rental ID to delete rental</p>
+            <div class="input-box">
+                <p-floatlabel variant="on">
+                    <input pInputText id="on_label" [(ngModel)]="rental_id" autocomplete="off" />
+                    <label for="on_label">Rental ID</label>
+                </p-floatlabel>
+            </div>
+            <p-button label="Delete Rental" (click)="deleteRental()"></p-button>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    </p-accordion>
+</div>

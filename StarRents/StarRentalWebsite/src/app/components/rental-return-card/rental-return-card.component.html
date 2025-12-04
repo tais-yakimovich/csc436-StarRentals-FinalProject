@@ -1,0 +1,44 @@
+<h1 *ngIf="rentals.length === 0">You have no cars rented</h1>
+
+<div *ngIf="rentals.length > 0">
+  <h1>Rental History</h1>
+  <div *ngFor="let rental of rentals">
+    <div class="container">
+      <div class="image">
+        <img
+          [src]="vehicles[rental.VIN]?.photo_url"
+          class="w-24 h-24 object-cover rounded"
+          width="200"
+          height="150"
+        />
+      </div>
+      <div class="text">
+        <h2 class="text-lg font-bold">
+          {{ vehicles[rental.VIN]?.year }} {{ vehicles[rental.VIN]?.make }} {{ vehicles[rental.VIN]?.model }}
+        </h2>
+        <h3>Rental Date: {{ rental.start_date }} - {{ rental.return_date }}</h3>
+        <br />
+        <i class="pi pi-filter"> Starting Mileage: {{ rental.start_mileage }} </i>
+        <br />
+        <i class="pi pi-map-marker"> Pick-up From: {{ rental.pickup_location_id }}</i>
+        <br />
+        <i class="pi pi-map-marker"> Return car to: {{ rental.dropoff_location_id }}</i>
+      </div>
+      <div class="card-footer" *ngIf="rental.return_mileage === 0">
+        <div class="text" id="price-box">
+          <p-floatlabel>
+            <input
+              pInputText
+              id="on_label"
+              [(ngModel)]="return_miles"
+              autocomplete="off"
+            />
+            <label for="on_label">Enter Return Miles</label>
+          </p-floatlabel>
+          <br />
+          <p-button label="Drop Off Car" (click)="returnCar(rental)"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

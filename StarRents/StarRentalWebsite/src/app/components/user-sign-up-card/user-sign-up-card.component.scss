@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8vh;
+}
+
+.login-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80vh;
+    height: 70vh;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid rgb(180, 180, 180);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.first-page{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.second-page{ 
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+:host ::ng-deep .float-label {
+  margin-bottom: 10px;
+  display: block; /* sometimes needed for spacing */
+}

@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="main">
+        <app-car-card [filters]="selectedFilters"></app-car-card>
+    </div>
+    <div class="sidebar">
+        <app-carfilter (applyFilters)="onFiltersApplied($event)"></app-carfilter>
+
+    </div>
+</div>

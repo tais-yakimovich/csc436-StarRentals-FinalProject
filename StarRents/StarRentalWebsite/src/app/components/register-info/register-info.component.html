@@ -1,0 +1,113 @@
+<div class="container">
+    <p-accordion value="0">
+    <h2>Car Info</h2>
+    <p-accordion-panel value="0">
+        <p-accordion-header>Add New Car</p-accordion-header>
+        <p-accordion-content>
+            <p>Insert Values to add a new car</p>
+            <div class="input-box">
+            <p-floatlabel variant="on">
+                <input pInputText id="insert_car_vin" [(ngModel)]="vin" autocomplete="off" />
+                <label for="vin">VIN</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="license_plate" [(ngModel)]="license_plate" autocomplete="off" />
+                <label for="license_plate">License Plate</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="year" [(ngModel)]="year" autocomplete="off" />
+                <label for="year">Year</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="make" [(ngModel)]="make" autocomplete="off" />
+                <label for="make">Make</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="model" [(ngModel)]="model" autocomplete="off" />
+                <label for="model">Model</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="body_style" [(ngModel)]="body_style" autocomplete="off" />
+                <label for="body_style">Body Style</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="color" [(ngModel)]="color" autocomplete="off" />
+                <label for="color">Color</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="miles" [(ngModel)]="miles" autocomplete="off" />
+                <label for="miles">Miles</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="rental_price" [(ngModel)]="rental_price" autocomplete="off" />
+                <label for="rental_price">Rental Price</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="location_id" [(ngModel)]="location_id" autocomplete="off" />
+                <label for="location_id">Location ID</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="fuel_type" [(ngModel)]="fuel_type" autocomplete="off" />
+                <label for="fuel_type">Fuel Type</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="rental_status" [(ngModel)]="rental_status" autocomplete="off" />
+                <label for="rental_status">Rental Status</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <input pInputText id="photo_url" [(ngModel)]="photo_url" autocomplete="off" />
+                <label for="photo_url">Photo URL</label>
+            </p-floatlabel>
+            </div>
+            <p-button label="Add Car" (click)="addCar()"></p-button>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="1">
+        <p-accordion-header>Locate Car</p-accordion-header>
+        <p-accordion-content>
+            <p>Insert VIN to locate car</p>
+            <div class="input-box">
+            <p-floatlabel variant="on">
+                <input pInputText id="vin" [(ngModel)]="vin" autocomplete="off" />
+                <label for="vin">VIN</label>
+            </p-floatlabel>
+            </div>
+                <p-button label="Locate Car" (click)="locateCar()"></p-button>
+                <!-- Display located car details -->
+                @if (locatedCar) {
+                <div class="located-car">
+                <h3>Car Details:</h3>
+                <p><strong>VIN:</strong> {{ locatedCar.VIN }}</p>
+                <p><strong>License Plate:</strong> {{ locatedCar.license_plate }}</p>
+                <p><strong>Year:</strong> {{ locatedCar.year }}</p>
+                <p><strong>Make:</strong> {{ locatedCar.make }}</p>
+                <p><strong>Model:</strong> {{ locatedCar.model }}</p>
+                <p><strong>Body Style:</strong> {{ locatedCar.body_style }}</p>
+                <p><strong>Color:</strong> {{ locatedCar.color }}</p>
+                <p><strong>Miles:</strong> {{ locatedCar.miles }}</p>
+                <p><strong>Rental Price:</strong> ${{ locatedCar.rental_price }}</p>
+                <p><strong>Fuel Type:</strong> {{ locatedCar.fuel_type }}</p>
+                <p><strong>Rental Status:</strong> {{ locatedCar.rental_status }}</p>
+            </div>
+            }
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="2">
+        <p-accordion-header>Delete Car</p-accordion-header>
+        <p-accordion-content>
+            <p>Insert VIN to delete car</p>
+            <div class="input-box">
+                <p-floatlabel variant="on">
+                    <input pInputText id="delete_car" [(ngModel)]="vin" autocomplete="off" />
+                    <label for="on_label">VIN</label>
+                </p-floatlabel>
+            </div>
+            <p-button label="Delete Car" (click)="deleteCar()"></p-button>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    </p-accordion>
+</div>
+

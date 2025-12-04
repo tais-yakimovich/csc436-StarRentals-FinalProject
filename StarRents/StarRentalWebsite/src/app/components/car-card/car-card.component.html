@@ -1,0 +1,34 @@
+<app-date-range (search)="onSearch($event)"></app-date-range>
+
+<div *ngFor="let vehicle of vehicles; trackBy: trackByVIN">
+  @if (vehicle.rental_status === 'Available'){
+    <!-- Only show the card if the vehicle is available -->
+    <div  class="container">
+      <div class="image">
+        <img [src]="vehicle.photo_url || 'default_image.png'" class="w-24 h-24 object-cover rounded" width="200" height="150" />
+      </div>
+      <div class="text">
+        <h2 class="text-lg font-bold">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</h2>
+        <i class="pi pi-car"> {{ vehicle.body_style }}</i>
+        <br>
+        <i class="pi pi-filter"> {{ vehicle.fuel_type }} </i>
+        <br>
+        <i class="pi pi-map-marker"> {{ vehicle.location.Lname }}, {{ vehicle.location.city }}, {{ vehicle.location.state }}</i>
+      </div>
+      <div class="text" id="price-box">
+        <h3>${{ vehicle.rental_price }} / Day</h3>
+        <br>
+        <p-button (click)="openReserveDialog(vehicle)" label="Reserve"></p-button>
+      </div>
+    </div>
+  }
+</div>
+
+@if (isReserveDialogVisible) {
+  <app-reserve-car
+  [carData]="selectedCar"
+  [pickUpLocationId]="selectedPickUpLocationId"
+  [dropOffLocationId]="selectedDropOffLocationId"
+  [dates]="dates"
+></app-reserve-car>
+}

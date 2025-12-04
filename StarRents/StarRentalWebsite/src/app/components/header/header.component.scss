@@ -1,0 +1,51 @@
+.header{
+    background-color: var(--color-deep-indigo);
+    padding: 10px;
+    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+h1 {
+    color:aliceblue;
+}
+
+h2 {
+    color:aliceblue;
+}
+.car-button {
+    background-color: transparent;
+    color: white;
+    border-color: transparent;
+    padding: 10px 20px;
+    margin-left: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    &:hover {
+        color: rgb(90, 230, 255)
+    }
+    
+    &:disabled {
+        background-color: var(--gray);
+        cursor: not-allowed;
+    }
+}
+
+.buttonBox{
+    display: flex;
+    align-items: center;
+
+}
+
+.car-button{
+    background-color: none;
+}
+
+.userBox {
+    display: flex;
+}
+:host ::ng-deep .p-button {
+  margin: 0px;
+}

@@ -1,0 +1,13 @@
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem; // spacing between rows
+}
+
+.checkbox-item p-checkbox {
+  margin-right: 0.5rem; // space between checkbox and label
+}
+
+.checkbox-item label {
+  margin-left: 0.25rem; // extra fine-tuning
+}

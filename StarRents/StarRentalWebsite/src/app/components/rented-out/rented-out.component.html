@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="info bar">
+        <h2>Rental History</h2>
+        <p>Total Rented Out: {{ totalRentals }}</p>
+    </div>
+    <p-accordion value="0">
+    <p-accordion-panel value="0">
+        <p-accordion-header>Rentals</p-accordion-header>
+        <p-accordion-content>
+        <p-table [value]="rentals" [tableStyle]="{ 'min-width': '50rem' }">
+
+            <!-- Header -->
+            <ng-template pTemplate="header">
+            <tr>
+                <th>Rental ID</th>
+                <th>VIN</th>
+                <th>Start Mileage</th>
+                <th>Return Mileage</th>
+                <th>Start Date</th>
+                <th>Return Date</th>
+                <th>User ID</th>
+                <th>Pickup Location</th>
+                <th>Dropoff Location</th>
+                <th>Payment ID</th>
+            </tr>
+            </ng-template>
+
+            <!-- Body -->
+            <ng-template pTemplate="body" let-rental>
+            <tr>
+                <td>{{ rental.rental_id }}</td>
+                <td>{{ rental.VIN }}</td>
+                <td>{{ rental.start_mileage }}</td>
+                <td>{{ rental.return_mileage }}</td>
+                <td>{{ rental.start_date }}</td>
+                <td>{{ rental.return_date }}</td>
+                <td>{{ rental.user_id }}</td>
+                <td>{{ rental.pickup_location_id }}</td>
+                <td>{{ rental.dropoff_location_id }}</td>
+                <td>{{ rental.payment_id }}</td>
+            </tr>
+            </ng-template>
+        </p-table>
+        </p-accordion-content>
+    </p-accordion-panel>
+    </p-accordion>
+</div>

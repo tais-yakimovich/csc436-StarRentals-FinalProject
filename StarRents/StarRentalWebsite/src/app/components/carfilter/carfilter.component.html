@@ -1,0 +1,57 @@
+<p-accordion value="0">
+    <p-accordion-panel value="0">
+        <p-accordion-header>Car Type</p-accordion-header>
+        <p-accordion-content>
+                <div *ngFor="let bodystyle of filters?.body_style" class="checkbox-item">
+                    <p-checkbox 
+                        [(ngModel)]="selectedBodyStyles" 
+                        [value]="bodystyle">
+                    </p-checkbox>
+                    <label class="ml-2">{{ bodystyle }}</label>
+                </div>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="1">
+        <p-accordion-header>Price Range</p-accordion-header>
+        <p-accordion-content>
+            <div class="m-0">
+                <div class="card flex justify-center">
+
+                <input type="text" pInputText [(ngModel)]="priceMax" class="w-full mb-4"/>
+                <br>
+                <p-slider [(ngModel)]="priceMax" class="w-full" />
+                </div>
+            </div>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="2">
+        <p-accordion-header>Location</p-accordion-header>
+        <p-accordion-content>
+            <div *ngFor="let loc of locations" class="checkbox-item">
+                <p-checkbox 
+                  [(ngModel)]="selectedLocation"
+                  [value]="loc.value">
+                </p-checkbox>
+                <label class="ml-2">{{ loc.label }}</label>
+              </div>
+        </p-accordion-content>
+    </p-accordion-panel>
+
+    <p-accordion-panel value="3">
+        <p-accordion-header>Transmission</p-accordion-header>
+        <p-accordion-content>
+            <div *ngFor="let fuel_type of filters?.fuel_type" class="checkbox-item">
+                    <p-checkbox 
+                        [(ngModel)]="selectedFuelTypes" 
+                        [value]="fuel_type">
+                    </p-checkbox>
+                    <label class="ml-2">{{ fuel_type }}</label>
+            </div>
+        </p-accordion-content>
+    </p-accordion-panel>
+    <br>
+    <p-button (click)="onApplyFilters()" label="Apply filters"></p-button>
+
+</p-accordion>

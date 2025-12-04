@@ -70,13 +70,16 @@ export class CarCardComponent implements OnInit{
       // Parse the dates into the desired format (YYYY-MM-DD)
       const startDate = dates[0] instanceof Date ? dates[0].toISOString().slice(0, 10) : null;
       const returnDate = dates[1] instanceof Date ? dates[1].toISOString().slice(0, 10) : null;
+      const bodyStyles: string[] = [];
+      const priceMax: number | null = null;
+      const fuelTypes: string[] = [];
 
       if (!startDate || !returnDate) {
         console.error('Invalid start or return date:', { startDate, returnDate });
         return;
       }
 
-      this.vehicleServiceService.getAvailableCars([this.selectedPickUpLocationId], startDate, returnDate, ).subscribe(
+      this.vehicleServiceService.getAvailableCars([this.selectedPickUpLocationId], startDate, returnDate, bodyStyles, priceMax, fuelTypes).subscribe(
         (vehicles: Vehicle[]) => {
           this.vehicles = vehicles.map((vehicle) => {
             const location = this.locations.find(

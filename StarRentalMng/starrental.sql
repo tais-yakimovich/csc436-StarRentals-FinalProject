@@ -169,7 +169,7 @@ INSERT INTO locations VALUES
 (DEFAULT, 'East Side Branch', '88 Thayer St', NULL, 'Providence', 'RI', 02906, 'USA', '401-555-3000', 'eastside@rentalco.com', NOW(), NOW()),
 (DEFAULT, 'Newport Branch', '45 Ocean Ave', NULL, 'Newport', 'RI', 02840, 'USA', '401-555-4000', 'newport@rentalco.com', NOW(), NOW()),
 (DEFAULT, 'Boston Branch', '500 Beacon St', NULL, 'Boston', 'MA', 02115, 'USA', '617-555-5000', 'boston@rentalco.com', NOW(), NOW()),
-(DEFAULT,'Boston Branch', '500 Beacon St', NULL, 'Boston', 'MA', 02115, 'USA', '617-555-5000', 'boston@rentalco.com', NOW(), NOW());
+(DEFAULT, 'Cranston Branch', '200 Park Ave', NULL, 'Cranston', 'RI', 02910, 'USA', '401-555-2200', 'cranston@rentalco.com', NOW(), NOW());
 
 -- 2. USERS
 INSERT INTO users VALUES

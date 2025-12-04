@@ -28,7 +28,7 @@ export class CarfilterComponent implements OnInit{
   ) {}
   filters: VehicleFilters | null = null;
   body_style: VehicleFilters["body_style"] = [];
-  locations: VehicleFilters["location_id"] = [];
+  locations: { label: string, value: number }[] = [];
   fuel_type: VehicleFilters["fuel_type"] = [];
 
   selectedBodyStyles: string[] = [];   // <-- for multiple checkboxes
@@ -45,6 +45,19 @@ export class CarfilterComponent implements OnInit{
         console.error('Error fetching filters:', error);
       }
     );
+    // Replace labels with IDs for locations from LocationService
+    this.locationService.getLocations().subscribe(
+      (locations: Location[]) => {
+        this.locations = locations.map(loc => ({
+          label: loc.Lname,
+          value: loc.location_id
+        }));
+      },
+      (error) => {
+        console.error('Error fetching locations:', error);
+      }
+    );
+
   }
   
   // Emit the selected filters when the "Apply Filter" button is clicked

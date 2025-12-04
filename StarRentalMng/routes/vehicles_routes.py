@@ -88,7 +88,7 @@ async def api_create_vehicle(vehicle: Vehicle):
                 vehicle.photo_url,
             )
             return vehicle
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
 
 
@@ -111,7 +111,7 @@ async def api_update_vehicle(vehicle: Vehicle):
                 vehicle.rental_status,
                 vehicle.photo_url,
             )
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
         finally:
             return vehicle

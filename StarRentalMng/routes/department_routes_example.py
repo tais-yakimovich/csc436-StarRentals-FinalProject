@@ -36,7 +36,7 @@ async def api_create_department(dept: Department):
             code = await create_department(dept.department_code, dept.department_name)
             # Return full model (includes code user sent)
             return Department(**dept.dict())
-        except ValueError as err:
+        except Exception as err:
             # status_code=400 → client error (bad request, e.g. duplicate)
             raise HTTPException(status_code=400, detail=str(err))
 
@@ -46,7 +46,7 @@ async def api_update_department(dept: Department):
     
         try:
             await update_department(dept.department_code, dept.department_name)
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
         finally:
             return Department(**dept.dict())

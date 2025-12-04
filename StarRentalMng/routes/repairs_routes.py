@@ -34,7 +34,7 @@ async def api_create_repair(repair: Repairs):
             repair_id = await create_repair(repair.repair_description, repair.VIN, repair.location_id)
             repair.repair_id = repair_id
             return Repairs(**repair.dict())
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
 
 
@@ -43,7 +43,7 @@ async def api_update_repair(repair: Repairs):
     
         try:
             await update_repair(repair.repair_id, repair.repair_description, repair.VIN, repair.location_id)
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
         finally:
             return Repairs(**repair.dict())

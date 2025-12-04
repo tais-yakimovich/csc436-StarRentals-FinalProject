@@ -85,5 +85,5 @@ async def api_update_payment_info(payment_info: PaymentInfo):
                 getattr(payment_info, 'user_id', None),
             )
             return payment_info
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))

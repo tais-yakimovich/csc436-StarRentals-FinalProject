@@ -45,7 +45,7 @@ async def api_create_location(location: Location):
             )
             location.location_id = location_id
             return location
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
 
 
@@ -76,5 +76,5 @@ async def api_update_location(location: Location):
                 getattr(location, 'email', None),
             )
             return location
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))

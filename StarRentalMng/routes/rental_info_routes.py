@@ -44,7 +44,7 @@ async def api_create_rental_info(rental_info: RentalInfo):
                 rental_info.payment_id)
             rental_info.rental_id = rental_id
             return RentalInfo(**rental_info.dict())
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
 
 
@@ -63,7 +63,7 @@ async def api_update_rental_info(rental_info: RentalInfo):
                 rental_info.pickup_location_id,
                 rental_info.dropoff_location_id,
                 rental_info.payment_id)
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
         finally:
             return RentalInfo(**rental_info.dict())

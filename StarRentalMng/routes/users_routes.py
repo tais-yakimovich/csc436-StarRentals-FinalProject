@@ -83,7 +83,7 @@ async def api_update_user(user: User):
                 user.zip_code,
                 user.country,
             )
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
         finally:
             return user

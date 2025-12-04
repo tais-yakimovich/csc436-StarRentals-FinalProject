@@ -29,7 +29,7 @@ async def api_create_course(course: Course):
         try:
             code = await create_course(course.course_code, course.course_title, course.department_code)
             return Course(**course.dict())
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
 
 
@@ -38,7 +38,7 @@ async def api_update_course(course: Course):
     
         try:
             await update_course(course.course_code, course.course_title, course.department_code)
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
         finally:
             return Course(**course.dict())

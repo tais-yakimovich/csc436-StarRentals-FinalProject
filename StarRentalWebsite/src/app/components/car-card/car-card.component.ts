@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Button, ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,8 @@ export class CarCardComponent implements OnInit{
   selectedPickUpLocationId: number | null = null; // Variable to store pick-up location ID
   selectedDropOffLocationId: number | null = null; // Variable to store drop-off location ID
   selectedCar: any = null; // Stores the selected car data
+  @Input() dates: Date[] = []; // The selected drop-off location
+
   isReserveDialogVisible: boolean = false;
   locations: Location[] = [];
 
@@ -57,30 +59,29 @@ export class CarCardComponent implements OnInit{
       }
     );
   }
-  // Handle pick-up location selection
-  onPickUpLocationSelected(locationId: number): void {
-    this.selectedPickUpLocationId = locationId;
-    console.log('Selected Pick-Up Location ID:', this.selectedPickUpLocationId);
-    alert("Value")
-    // Fetch vehicles for the selected pick-up location
-    this.fetchVehiclesForPickUpLocation();
-  }
+ 
+  fetchVehiclesForPickUpLocation(dates: Date[]): void {
+  if (this.selectedPickUpLocationId !== null) {
+    // Parse the dates into the desired format (YYYY-MM-DD)
+    const startDate = this.dates[0] instanceof Date ? this.dates[0].toISOString().slice(0, 10) : null;
+    const returnDate = this.dates[1] instanceof Date ? this.dates[1].toISOString().slice(0, 10) : null;
 
-  // Fetch vehicles for the selected pick-up location
-  fetchVehiclesForPickUpLocation(): void {
-    if (this.selectedPickUpLocationId !== null) {
-      this.vehicleServiceService.getVehiclesAtLocation(this.selectedPickUpLocationId).subscribe(
-        (vehicles: Vehicle[]) => {
-          this.vehicles = vehicles;
-          console.log('Vehicles fetched for pick-up location:', this.vehicles);
-        },
-        (error) => {
-          console.error('Error fetching vehicles:', error);
-          alert('Failed to fetch vehicles. Please try again later.');
-        }
-      );
-    }
+    this.vehicleServiceService.getAvailableCars([this.selectedPickUpLocationId], startDate!, returnDate!).subscribe(
+      (vehicles: Vehicle[]) => {
+        this.vehicles = vehicles.map((vehicle) => {
+          const location = this.locations.find(
+            (loc) => loc.location_id === vehicle.location_id
+          );
+          return { ...vehicle, location }; // Add location data to the vehicle
+        });
+        console.log('Vehicles fetched for pick-up location:', this.vehicles);
+      },
+      (error) => {
+        console.error('Error fetching vehicles:', error);
+      }
+    );
   }
+}
 
   // Handle drop-off location selection
   onDropOffLocationSelected(locationId: number): void {
@@ -96,7 +97,7 @@ export class CarCardComponent implements OnInit{
 
     if (pickUp) {
       this.selectedPickUpLocationId = pickUp;
-      this.fetchVehiclesForPickUpLocation();
+      this.fetchVehiclesForPickUpLocation(dates);
     }
 
     if (dropOff) {
@@ -105,7 +106,9 @@ export class CarCardComponent implements OnInit{
     }
 
     if (dates.length > 0) {
+      this.dates = dates;
       console.log('Selected Date Range:', dates);
+
       // Perform actions based on the selected date range
     }
   }
@@ -124,5 +127,5 @@ export class CarCardComponent implements OnInit{
   trackByVIN(index: number, vehicle: Vehicle): string {
     return vehicle.VIN; // Use VIN as a unique identifier
   }
-  
+
 }

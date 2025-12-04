@@ -54,6 +54,7 @@ export class RegisterRentalsComponent {
     this.RentalService.deleteRental(this.rental_id).subscribe(
       (response) => {
         console.log('Rental deleted successfully:', response);
+        alert('Deleted Rental.');
       },
       (error) => {
         console.error('Error locating rental:', error);

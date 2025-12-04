@@ -10,6 +10,18 @@
     }
     @else {
         @if (paymentInfo === null){
+            "payment_id": 0,
+    "cardholder_name": "string",
+    "card_number": "string",
+    "exp_month": "string",
+    "exp_year": "string",
+    "cvv": "string",
+    "billing_address": "string",
+    "city": "string",
+    "state": "string",
+    "zip_code": "string",
+    "country": "string",
+    "user_id": 0
             <h2>Please add a payment card to reserve</h2>
         }
         <h2>Car Details</h2>
@@ -19,11 +31,16 @@
         <p>Cost Per Day: {{ carData?.rental_price }}</p>
 
         @if (paymentInfo !== null ){
-        <h3>Pay using card ending in {{ paymentInfo.card_number.slice(-4) }}</h3>
+            <div class="login" id="card-box">
+                <h3>Pay using card ending in {{ paymentInfo.card_number.slice(-4) }}</h3> 
+                <p-button severity="secondary" (click)="deleteCard()"><i class="pi pi-times" style="color: red"></i></p-button>
+            </div>
+            
+            <div class="login">
+                <p-button label="Cancel" severity="secondary" (click)="close()" />
 
-        <p-button label="Cancel" severity="secondary" (click)="close()" />
-
-        <p-button label="Reserve" (click)="reserveCar()" />
+                <p-button label="Reserve" (click)="reserveCar()" />
+            </div>
         }
     }
 </p-dialog>

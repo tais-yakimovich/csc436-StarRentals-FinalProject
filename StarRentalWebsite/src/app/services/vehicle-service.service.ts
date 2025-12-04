@@ -23,6 +23,28 @@ export class VehicleServiceService {
     return this.http.delete(`http://127.0.0.1:8007/api/vehicles/${vin}`);
   }
 
+  getAvailableCars(
+    locationIds: number[] = [],
+    startDate: string = "9999-12-31",
+    endDate: string = "0000-01-01",
+    bodyStyles: string[] = [],
+    priceMax: number = Number.MAX_SAFE_INTEGER,
+    fuelTypes: string[] = []
+  ): Observable<Vehicle[]> {
+    const params = {
+      location_id: locationIds.join(','), // Convert array to comma-separated string
+      start_date: startDate,
+      end_date: endDate,
+      body_style: bodyStyles.join(','), // Convert array to comma-separated string
+      price_max: priceMax.toString(),
+      fuel_type: fuelTypes.join(','), // Convert array to comma-separated string
+    };
+
+    const queryString = new URLSearchParams(params).toString();
+    const url = `http://127.0.0.1:8007/api/vehicles/available/filter?${queryString}`;
+    return this.http.get<Vehicle[]>(url);
+  }
+
   // Update a vehicle
   updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
     return this.http.put<Vehicle>(`http://127.0.0.1:8007/api/vehicles/`, vehicle);

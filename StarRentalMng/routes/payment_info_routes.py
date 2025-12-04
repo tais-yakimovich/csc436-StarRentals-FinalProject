@@ -54,7 +54,7 @@ async def api_create_payment_info(payment_info: PaymentInfo):
             )
             payment_info.payment_id = payment_id
             return payment_info
-        except ValueError as err:
+        except Exception as err:
             raise HTTPException(status_code=400, detail=str(err))
 
 

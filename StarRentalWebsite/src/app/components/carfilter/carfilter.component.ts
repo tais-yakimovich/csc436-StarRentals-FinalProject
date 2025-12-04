@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../models/vehicle';
+import { Location } from '../../models/location';
+import { LocationService } from '../../services/location.service';
 import { VehicleFilters, VehicleServiceService } from '../../services/vehicle-service.service';
 @Component({
   selector: 'app-carfilter',
@@ -15,13 +17,20 @@ import { VehicleFilters, VehicleServiceService } from '../../services/vehicle-se
 export class CarfilterComponent implements OnInit{
   value: any;
   size: any;
-  constructor(private vehicleService: VehicleServiceService) {}
+  constructor(
+    private vehicleService: VehicleServiceService,
+    private locationService: LocationService
+  ) {}
   filters: VehicleFilters | null = null;
   body_style: VehicleFilters["body_style"] = [];
   locations: VehicleFilters["location_id"] = [];
   fuel_type: VehicleFilters["fuel_type"] = [];
 
-  selectedBody_styles: string[] = [];   // <-- for multiple checkboxes
+  selectedBodyStyles: string[] = [];   // <-- for multiple checkboxes
+
+  selectedLocation: string[] = [];   // <-- for multiple checkboxes
+
+  selectedTransmission: string[] = [];   // <-- for multiple checkboxes
 
   ngOnInit(): void {
     this.vehicleService.getFilters().subscribe(
@@ -34,19 +43,6 @@ export class CarfilterComponent implements OnInit{
       }
     );
   }
-  locations = [
-    { label: "Kingston", value: "kingston" },
-    { label: "Providence", value: "providence" },
-    { label: "Narragansett", value: "narragansett" },
-    { label: "Warwick", value: "warwick" }
-  ];
-  selectedLocation: string[] = [];   // <-- for multiple checkboxes
-
-  transmissionTypes = [
-    { label: "Gasoline", value: "gasoline" },
-    { label: "Electric", value: "electric" }
-  ];
-  selectedTransmission: string[] = [];   // <-- for multiple checkboxes
-
+  
 
 }

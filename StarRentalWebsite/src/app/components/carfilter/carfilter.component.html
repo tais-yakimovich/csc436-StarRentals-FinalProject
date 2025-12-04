@@ -2,12 +2,12 @@
     <p-accordion-panel value="0">
         <p-accordion-header>Car Type</p-accordion-header>
         <p-accordion-content>
-                <div *ngFor="let type of carTypes" class="checkbox-item">
+                <div *ngFor="let bodystyle of filters?.body_style" class="checkbox-item">
                     <p-checkbox 
-                        [(ngModel)]="selectedCarTypes" 
-                        [value]="type.value">
+                        [(ngModel)]="selectedBodyStyles" 
+                        [value]="bodystyle">
                     </p-checkbox>
-                    <label class="ml-2">{{ type.label }}</label>
+                    <label class="ml-2">{{ bodystyle }}</label>
                 </div>
         </p-accordion-content>
     </p-accordion-panel>
@@ -25,13 +25,12 @@
     <p-accordion-panel value="2">
         <p-accordion-header>Location</p-accordion-header>
         <p-accordion-content>
-            @for (let location of filters.location_id)
-            <div class="checkbox-item">
+            <div *ngFor="let locations of filters?.location_id" class="checkbox-item">
                     <p-checkbox 
                         [(ngModel)]="selectedLocation" 
-                        [value]="type.value">
+                        [value]="locations">
                     </p-checkbox>
-                    <label class="ml-2">{{ type.label }}</label>
+                    <label class="ml-2">{{ locations }}</label>
             </div>
         </p-accordion-content>
     </p-accordion-panel>
@@ -39,12 +38,12 @@
     <p-accordion-panel value="3">
         <p-accordion-header>Transmission</p-accordion-header>
         <p-accordion-content>
-            <div *ngFor="let type of transmissionTypes" class="checkbox-item">
+            <div *ngFor="let fuel_type of filters?.fuel_type" class="checkbox-item">
                     <p-checkbox 
                         [(ngModel)]="selectedTransmission" 
-                        [value]="type.value">
+                        [value]="fuel_type">
                     </p-checkbox>
-                    <label class="ml-2">{{ type.label }}</label>
+                    <label class="ml-2">{{ fuel_type }}</label>
             </div>
         </p-accordion-content>
     </p-accordion-panel>

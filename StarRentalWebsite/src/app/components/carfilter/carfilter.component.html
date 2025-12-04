@@ -25,13 +25,13 @@
     <p-accordion-panel value="2">
         <p-accordion-header>Location</p-accordion-header>
         <p-accordion-content>
-            <div *ngFor="let locations of filters?.location_id" class="checkbox-item">
-                    <p-checkbox 
-                        [(ngModel)]="selectedLocation" 
-                        [value]="locations">
-                    </p-checkbox>
-                    <label class="ml-2">{{ locations }}</label>
-            </div>
+            <div *ngFor="let loc of locations" class="checkbox-item">
+                <p-checkbox 
+                  [(ngModel)]="selectedLocation"
+                  [value]="loc.value">
+                </p-checkbox>
+                <label class="ml-2">{{ loc.label }}</label>
+              </div>
         </p-accordion-content>
     </p-accordion-panel>
 

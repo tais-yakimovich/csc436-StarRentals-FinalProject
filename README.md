@@ -6,7 +6,7 @@
 
 3. **VIDEO**[](./)
 
-4. **WEBSITE SOURCE CODE:** [`StarRentalWebsite`](./StarRentalWebsite)  
+4. **WEBSITE SOURCE CODE:** [`StarRentalWebsite`](./StarRents/StarRentalWebsite)  
 To run: install Angular and Node.js, run `ng serve`
 **BACKEND SOURCE CODE:** [`StarRentalMng`](./StarRentalMng)  
 To run: `pip install -r requirements.txt`, run [`main.py`](./StarRentalMng/main.py)

@@ -6,7 +6,7 @@
 
 3. **VIDEO**[](./)
 
-4. **WEBSITE SOURCE CODE:** [`StarRentalWebsite`](./StarRents/StarRentalWebsite)  
+4. **WEBSITE SOURCE CODE:** [`StarRents/StarRentalWebsite`](./StarRents/StarRentalWebsite)  
 To run: install Angular and Node.js, run `ng serve`
 
 **BACKEND SOURCE CODE:** [`StarRentalMng`](./StarRentalMng)  

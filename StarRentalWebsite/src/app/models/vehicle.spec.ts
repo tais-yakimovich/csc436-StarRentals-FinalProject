@@ -1,2 +1,0 @@
-import { Vehicle } from './vehicle';
-

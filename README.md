@@ -4,7 +4,7 @@
 
 2. **PROJECT DOCUMENT** [](./)
 
-3. **VIDEO**[](./)
+3. **VIDEO**[StarRental Demo](./StarRental%20-%20Google%20Chrome%202025-12-04%2020-33-50.mp4)
 
 4. **WEBSITE SOURCE CODE:** [`StarRentalWebsite`](./StarRentalWebsite)  
 To run: install Angular and Node.js, run `ng serve`

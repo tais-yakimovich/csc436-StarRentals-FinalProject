@@ -2,7 +2,7 @@
 
 1. **PRESENTATION** [`CSC436 Presentation.pdf`](./CSC436%20Presentation.pdf)
 
-2. **PROJECT DOCUMENT** [](./)
+2. **PROJECT DOCUMENT** [CSC 436 - Group 3 Star Rental Documentation](./)
 
 3. **VIDEO** [StarRental Demo](./StarRental%20-%20Google%20Chrome%202025-12-04%2020-33-50.mp4)
 

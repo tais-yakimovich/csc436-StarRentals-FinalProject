@@ -8,9 +8,10 @@
 
 4. **WEBSITE SOURCE CODE:** [`StarRentalWebsite`](./StarRents/StarRentalWebsite)  
 To run: install Angular and Node.js, run `ng serve`
+
 **BACKEND SOURCE CODE:** [`StarRentalMng`](./StarRentalMng)  
 To run: `pip install -r requirements.txt`, run [`main.py`](./StarRentalMng/main.py)
 
-5. **SQL DATABASE:** [`StarRentalMng/starrental.sql`](./StarRentalMng/starrental.sql)
+6. **SQL DATABASE:** [`StarRentalMng/starrental.sql`](./StarRentalMng/starrental.sql)
 
-6. **PRESENTATION REVIEW:** [`Group 3 - Presentation Review.pdf`](./Group%203%20-%20Presentation%20Review.pdf)
+7. **PRESENTATION REVIEW:** [`Group 3 - Presentation Review.pdf`](./Group%203%20-%20Presentation%20Review.pdf)
